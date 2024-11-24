@@ -2,7 +2,7 @@
 
 _A demo showcasing real-time terrain reshaping through user interactions, optimized for performance and visual fidelity, built with React Three Fiber._
 
-![Demo preview](https://github.com/oguzhantufenk/terrain-deformation/blob/main/dynamic-terrain-deformation.mp4)
+![Demo preview](https://github.com/oguzhantufenk/dynamic-terrain-deformation/blob/main/dynamic-terrain-deformation.mp4)
 
 [Article on Codrops](https://tympanus.net/codrops/?p=)
 
