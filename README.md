@@ -2,7 +2,7 @@
 
 _A demo showcasing real-time terrain reshaping through user interactions, optimized for performance and visual fidelity, built with React Three Fiber._
 
-![Demo preview](https://github.com/user-attachments/assets/6759ad82-0591-429e-8957-44159911a053)
+https://github.com/user-attachments/assets/6759ad82-0591-429e-8957-44159911a053
 
 [Article on Codrops](https://tympanus.net/codrops/?p=)
 
