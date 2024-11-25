@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useEffect, useMemo, useState } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import {
@@ -27,14 +26,14 @@ const tempVertex = new THREE.Vector3();
 const tempVector = new THREE.Vector3();
 
 const InfiniteSnowWorld = () => {
-  // Character and chunk references
+  // References for character and chunks
   const characterRef = useRef();
   const characterParentRef = useRef();
   const chunksRef = useRef([]);
   const lastActiveChunkRef = useRef(null);
   const deformedChunksMapRef = useRef(new Map());
 
-  // Movement and smoothing
+  // References for movement and rotation smoothing
   const smoothMovement = useRef(new THREE.Vector3());
   const lastMovementTime = useRef(0);
   const currentRotation = useRef(0);
@@ -47,6 +46,19 @@ const InfiniteSnowWorld = () => {
   // State for movement and audio
   const [isMoving, setIsMoving] = useState(false);
   const footstepAudioRef = useRef();
+
+  // Reference for movement input
+  const movement = useRef({
+    forward: false,
+    backward: false,
+    left: false,
+    right: false,
+  });
+
+  // Load character model and animations
+  const { scene, animations } = useGLTF("/models/explorer.glb");
+  const { actions } = useAnimations(animations, scene);
+  const currentAnimationRef = useRef(null);
 
   // Load textures for snow and character
   const [colorMap, normalMap, roughnessMap, aoMap, displacementMap] =
@@ -64,17 +76,14 @@ const InfiniteSnowWorld = () => {
     "/textures/character/normal.png",
   ]);
 
-  const movement = useRef({
-    forward: false,
-    backward: false,
-    left: false,
-    right: false,
-  });
+  // Configure character textures
+  texture.flipY = false;
+  normal.flipY = false;
+  occlusion.flipY = false;
 
-  const { scene, animations } = useGLTF("/models/explorer.glb");
-  const { actions } = useAnimations(animations, scene);
-  const currentAnimationRef = useRef(null);
-
+  // Function to switch character animations
+  // "Armature|mixamo.com|Layer0 - Walk
+  // "Armature.001|mixamo.com|Layer0 - Idle
   const switchAnimation = (animationName) => {
     if (currentAnimationRef.current !== animationName) {
       if (currentAnimationRef.current && actions[currentAnimationRef.current]) {
@@ -87,10 +96,7 @@ const InfiniteSnowWorld = () => {
     }
   };
 
-  texture.flipY = false;
-  normal.flipY = false;
-  occlusion.flipY = false;
-
+  // Update character materials and scale on load
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -176,7 +182,6 @@ const InfiniteSnowWorld = () => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
-    // Clean up event listeners on unmount
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
@@ -247,10 +252,11 @@ const InfiniteSnowWorld = () => {
     return chunks;
   }, []);
 
-  // Utility functions for chunk management
+  // Utility function to generate a unique key for each chunk
   const getChunkKey = (x, z) =>
     `${Math.round(x / CHUNK_SIZE)},${Math.round(z / CHUNK_SIZE)}`;
 
+  // Save the deformation state of a chunk
   const saveChunkDeformation = (chunk) => {
     if (!chunk) return;
     const chunkKey = getChunkKey(chunk.position.x, chunk.position.z);
@@ -261,6 +267,7 @@ const InfiniteSnowWorld = () => {
     );
   };
 
+  // Load the deformation state of a chunk if available
   const loadChunkDeformation = (chunk) => {
     if (!chunk) return;
     const chunkKey = getChunkKey(chunk.position.x, chunk.position.z);
@@ -276,6 +283,7 @@ const InfiniteSnowWorld = () => {
     return false;
   };
 
+  // Get chunks neighboring a specific position
   const getNeighboringChunks = (position, chunksRef) => {
     return chunksRef.current.filter((chunk) => {
       const distance = new THREE.Vector2(
@@ -286,6 +294,7 @@ const InfiniteSnowWorld = () => {
     });
   };
 
+  // Recycle chunks that are too far from the character
   const recycleDistantChunks = (characterPosition) => {
     chunksRef.current.forEach((chunk) => {
       const distance = new THREE.Vector2(
@@ -309,6 +318,7 @@ const InfiniteSnowWorld = () => {
     });
   };
 
+  // Function to deform the mesh based on a point of impact
   const deformMesh = useMemo(() => {
     return (mesh, point) => {
       if (!mesh) return;
@@ -359,7 +369,7 @@ const InfiniteSnowWorld = () => {
 
   const characterPosition = new THREE.Vector3();
 
-  // Main animation loop using useFrame
+  // Main animation loop
   useFrame((state, delta) => {
     const speed = CHARACTER_SPEED;
     const direction = new THREE.Vector3();
@@ -519,7 +529,6 @@ const InfiniteSnowWorld = () => {
           ref={(el) => {
             if (el) {
               chunksRef.current[index] = el;
-
               // Save the original position of the chunk for resetting deformations
               if (!el.geometry.userData.originalPosition) {
                 el.geometry.userData.originalPosition =
@@ -527,7 +536,7 @@ const InfiniteSnowWorld = () => {
               }
             }
           }}
-          rotation={[-Math.PI / 2, 0, 0]} // Rotate to make it horizontal
+          rotation={[-Math.PI / 2, 0, 0]}
           position={[chunk.x * CHUNK_SIZE, 0, chunk.z * CHUNK_SIZE]}
         >
           <planeGeometry

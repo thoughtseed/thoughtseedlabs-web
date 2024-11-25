@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-
 import { isMobile, isTablet } from "react-device-detect";
 
 import Scene from "./Scene";

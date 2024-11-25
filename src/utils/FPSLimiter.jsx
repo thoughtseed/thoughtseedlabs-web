@@ -1,4 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
+
+// FrameLimiter component restricts the rendering FPS to the specified value
+// to prevent unnecessary power usage on mobile devices.
+
 import { useLayoutEffect } from "react";
 import { useThree } from "@react-three/fiber";
 
@@ -10,6 +15,7 @@ function FrameLimiter({ fps = 60 }) {
     let then = 0;
     let raf = null;
     const interval = 1000 / fps;
+
     function tick(t) {
       raf = requestAnimationFrame(tick);
       elapsed = t - then;
@@ -28,6 +34,8 @@ function FrameLimiter({ fps = 60 }) {
       set({ frameloop: initFrameloop });
     };
   }, [fps]);
+
+  return null;
 }
 
 export default FrameLimiter;
