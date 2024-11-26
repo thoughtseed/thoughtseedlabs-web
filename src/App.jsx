@@ -30,7 +30,7 @@ function App() {
             Touch and drag on the screen to navigate the character.
           </span>
         ) : (
-          <div className="tutorial-keys ">
+          <div className="tutorial-keys">
             <section className="wasd-keys">
               <span>W</span>
               <span>A</span>
