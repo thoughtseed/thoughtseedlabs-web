@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState } from "react";
+import { useRef, useEffect, useMemo, useState, useCallback } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import {
   useTexture,
@@ -19,10 +19,17 @@ const GRID_RESOLUTION = 64;
 const CHARACTER_SPEED = 12;
 const CHUNK_UNLOAD_DISTANCE = CHUNK_SIZE * 3;
 const CHUNK_OVERLAP = 0.5;
-const DEFORM_RADIUS = 2.5;
 
-// Temporary vectors for calculations to avoid reallocating memory
-const tempVertex = new THREE.Vector3();
+// Constants for snow deformation
+const DEFORM_RADIUS = 2.5;
+const WAVE_AMPLITUDE = 0.005;
+const WAVE_FREQUENCY = 4;
+
+// Animation Names
+const WALK_ANIMATION = "Armature|mixamo.com|Layer0";
+const IDLE_ANIMATION = "Armature.001|mixamo.com|Layer0";
+
+// Temporary vector for calculations
 const tempVector = new THREE.Vector3();
 
 const InfiniteSnowWorld = () => {
@@ -37,6 +44,7 @@ const InfiniteSnowWorld = () => {
   const smoothMovement = useRef(new THREE.Vector3());
   const lastMovementTime = useRef(0);
   const currentRotation = useRef(0);
+  const characterPosition = new THREE.Vector3();
 
   // Camera setup
   const { camera } = useThree();
@@ -82,17 +90,16 @@ const InfiniteSnowWorld = () => {
   occlusion.flipY = false;
 
   // Function to switch character animations
-  // "Armature|mixamo.com|Layer0 - Walk
-  // "Armature.001|mixamo.com|Layer0 - Idle
   const switchAnimation = (animationName) => {
-    if (currentAnimationRef.current !== animationName) {
-      if (currentAnimationRef.current && actions[currentAnimationRef.current]) {
-        actions[currentAnimationRef.current].fadeOut(0.5);
-      }
-      if (actions[animationName]) {
-        actions[animationName].reset().fadeIn(0.4).play();
-        currentAnimationRef.current = animationName;
-      }
+    const currentAnimation = currentAnimationRef.current;
+
+    if (currentAnimation === animationName) return;
+
+    actions[currentAnimation]?.fadeOut(0.5);
+
+    if (actions[animationName]) {
+      actions[animationName].reset().fadeIn(0.4).play();
+      currentAnimationRef.current = animationName;
     }
   };
 
@@ -257,7 +264,7 @@ const InfiniteSnowWorld = () => {
     `${Math.round(x / CHUNK_SIZE)},${Math.round(z / CHUNK_SIZE)}`;
 
   // Save the deformation state of a chunk
-  const saveChunkDeformation = (chunk) => {
+  const saveChunkDeformation = useCallback((chunk) => {
     if (!chunk) return;
     const chunkKey = getChunkKey(chunk.position.x, chunk.position.z);
     const position = chunk.geometry.attributes.position;
@@ -265,10 +272,10 @@ const InfiniteSnowWorld = () => {
       chunkKey,
       new Float32Array(position.array)
     );
-  };
+  }, []);
 
   // Load the deformation state of a chunk if available
-  const loadChunkDeformation = (chunk) => {
+  const loadChunkDeformation = useCallback((chunk) => {
     if (!chunk) return;
     const chunkKey = getChunkKey(chunk.position.x, chunk.position.z);
     const savedDeformation = deformedChunksMapRef.current.get(chunkKey);
@@ -281,10 +288,10 @@ const InfiniteSnowWorld = () => {
       return true;
     }
     return false;
-  };
+  }, []);
 
   // Get chunks neighboring a specific position
-  const getNeighboringChunks = (position, chunksRef) => {
+  const getNeighboringChunks = useCallback((position, chunksRef) => {
     return chunksRef.current.filter((chunk) => {
       const distance = new THREE.Vector2(
         chunk.position.x - position.x,
@@ -292,7 +299,7 @@ const InfiniteSnowWorld = () => {
       ).length();
       return distance < CHUNK_SIZE + DEFORM_RADIUS;
     });
-  };
+  }, []);
 
   // Recycle chunks that are too far from the character
   const recycleDistantChunks = (characterPosition) => {
@@ -319,20 +326,25 @@ const InfiniteSnowWorld = () => {
   };
 
   // Function to deform the mesh based on a point of impact
-  const deformMesh = useMemo(() => {
-    return (mesh, point) => {
+  const deformMesh = useCallback(
+    (mesh, point) => {
       if (!mesh) return;
 
       const neighboringChunks = getNeighboringChunks(point, chunksRef);
+      const tempVertex = new THREE.Vector3();
+      const geometriesToUpdate = [];
 
       neighboringChunks.forEach((chunk) => {
         const geometry = chunk.geometry;
-        const position = geometry.attributes.position;
-        const vertices = position.array;
+        if (!geometry || !geometry.attributes || !geometry.attributes.position)
+          return;
+
+        const positionAttribute = geometry.attributes.position;
+        const vertices = positionAttribute.array;
 
         let hasDeformation = false;
 
-        for (let i = 0; i < position.count; i++) {
+        for (let i = 0; i < positionAttribute.count; i++) {
           tempVertex.fromArray(vertices, i * 3);
           chunk.localToWorld(tempVertex);
 
@@ -348,9 +360,8 @@ const InfiniteSnowWorld = () => {
             tempVertex.y -=
               yOffset * Math.sin((distance / DEFORM_RADIUS) * Math.PI);
 
-            const waveAmplitude = 0.005;
-            const waveFrequency = 4;
-            tempVertex.y += waveAmplitude * Math.sin(waveFrequency * distance);
+            tempVertex.y +=
+              WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * distance);
 
             chunk.worldToLocal(tempVertex);
             tempVertex.toArray(vertices, i * 3);
@@ -359,15 +370,20 @@ const InfiniteSnowWorld = () => {
         }
 
         if (hasDeformation) {
-          position.needsUpdate = true;
-          geometry.computeVertexNormals();
+          positionAttribute.needsUpdate = true;
+          geometriesToUpdate.push(geometry);
           saveChunkDeformation(chunk);
         }
       });
-    };
-  }, []);
 
-  const characterPosition = new THREE.Vector3();
+      if (geometriesToUpdate.length > 0) {
+        geometriesToUpdate.forEach((geometry) =>
+          geometry.computeVertexNormals()
+        );
+      }
+    },
+    [getNeighboringChunks, chunksRef, saveChunkDeformation]
+  );
 
   // Main animation loop
   useFrame((state, delta) => {
@@ -408,11 +424,7 @@ const InfiniteSnowWorld = () => {
     }
 
     // Update animation based on movement
-    if (isCurrentlyMoving) {
-      switchAnimation("Armature|mixamo.com|Layer0");
-    } else {
-      switchAnimation("Armature.001|mixamo.com|Layer0");
-    }
+    switchAnimation(isCurrentlyMoving ? WALK_ANIMATION : IDLE_ANIMATION);
 
     // Update character position and rotation
     if (characterParentRef.current) {
