@@ -25,6 +25,6 @@ Follow Codrops: [Bluesky](https://bsky.app/profile/codrops.bsky.social), [Facebo
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/oguzhantufenk/dynamic-terrain-deformation/blob/master/LICENSE.txt)
 
 Made with :blue_heart: by [Oguzhan](http://www.codrops.com)
