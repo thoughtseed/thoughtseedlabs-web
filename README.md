@@ -4,9 +4,9 @@ _A demo showcasing real-time terrain reshaping through user interactions, optimi
 
 https://github.com/user-attachments/assets/6759ad82-0591-429e-8957-44159911a053
 
-[Article on Codrops](https://tympanus.net/codrops/?p=)
+[Article on Codrops](https://tympanus.net/codrops/?p=83147)
 
-[Demo](https://tympanus.net/Development/.../)
+[Demo](https://tympanus.net/Tutorials/DynamicTerrainDeformation/)
 
 ## Installation
 
@@ -19,12 +19,12 @@ Run this demo on a [local server](https://developer.mozilla.org/en-US/docs/Learn
 
 ## Misc
 
-Follow _Author_: [Twitter](https://x.com/otfnk), [Instagram](https://www.instagram.com/otfnk/), [GitHub](https://github.com/oguzhantufenk)
+Follow Oguzhan: [Twitter](https://x.com/otfnk), [Instagram](https://www.instagram.com/otfnk/), [GitHub](https://github.com/oguzhantufenk)
 
 Follow Codrops: [Bluesky](https://bsky.app/profile/codrops.bsky.social), [Facebook](http://www.facebook.com/codrops), [GitHub](https://github.com/codrops), [Instagram](https://www.instagram.com/codropsss/), [X](http://www.x.com/codrops)
 
 ## License
 
-[MIT](https://github.com/oguzhantufenk/dynamic-terrain-deformation/blob/master/LICENSE.txt)
+[MIT](LICENSE)
 
 Made with :blue_heart: by [Oguzhan](http://www.codrops.com)
