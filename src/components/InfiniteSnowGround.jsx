@@ -32,7 +32,7 @@ const IDLE_ANIMATION = "Armature.001|mixamo.com|Layer0";
 // Temporary vector for calculations
 const tempVector = new THREE.Vector3();
 
-const InfiniteSnowWorld = () => {
+const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
   // References for character and chunks
   const characterRef = useRef();
   const characterParentRef = useRef();
@@ -403,25 +403,27 @@ const InfiniteSnowWorld = () => {
 
     const isCurrentlyMoving = smoothMovement.current.lengthSq() > 0.01;
 
-    // Handle movement state and audio
-    if (isCurrentlyMoving) {
-      lastMovementTime.current = state.clock.elapsedTime;
-      if (!isMoving) {
-        setIsMoving(true);
-        if (footstepAudioRef.current && !footstepAudioRef.current.isPlaying) {
-          footstepAudioRef.current.play();
-        }
+  // Handle movement state and audio
+  if (isCurrentlyMoving) {
+    lastMovementTime.current = state.clock.elapsedTime;
+    if (!isMoving) {
+      setIsMoving(true);
+      onMovingChange?.(true);
+      if (footstepAudioRef.current && !footstepAudioRef.current.isPlaying) {
+        footstepAudioRef.current.play();
       }
-    } else {
-      if (state.clock.elapsedTime - lastMovementTime.current > 1) {
-        if (isMoving) {
-          setIsMoving(false);
-          if (footstepAudioRef.current && footstepAudioRef.current.isPlaying) {
-            footstepAudioRef.current.stop();
-          }
+    }
+  } else {
+    if (state.clock.elapsedTime - lastMovementTime.current > 1) {
+      if (isMoving) {
+        setIsMoving(false);
+        onMovingChange?.(false);
+        if (footstepAudioRef.current && footstepAudioRef.current.isPlaying) {
+          footstepAudioRef.current.stop();
         }
       }
     }
+  }
 
     // Update animation based on movement
     switchAnimation(isCurrentlyMoving ? WALK_ANIMATION : IDLE_ANIMATION);
@@ -447,6 +449,7 @@ const InfiniteSnowWorld = () => {
       }
 
       characterParentRef.current.getWorldPosition(characterPosition);
+      onPositionChange?.([characterPosition.x, characterPosition.y, characterPosition.z]);
 
       cameraTargetRef.current
         .copy(characterPosition)

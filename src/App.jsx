@@ -5,23 +5,28 @@ import Scene from "./Scene";
 import WaypointsToggle from "./components/WaypointsToggle";
 import InstructionsToggle from "./components/InstructionsToggle";
 import Modal from "./components/Modal";
+import InfiniteSnowGround from "./components/InfiniteSnowGround";
 
 const SECTION_CONTENT = {
   about: {
-    title: "About",
-    content: "Welcome to my portfolio! I'm a passionate web developer specializing in creating immersive 3D experiences using Three.js and Next.js."
+    title: "About Thoughtseed",
+    content: "Welcome to Thoughtseed, where we cultivate conscious intentions through a unique blend of science, engineering, design, and human connection. Begin your journey of understanding and growth with us."
   },
-  projects: {
-    title: "Projects",
-    content: "Explore my latest projects showcasing interactive 3D graphics, responsive design, and cutting-edge web technologies."
+  science: {
+    title: "The Science",
+    content: "At Thoughtseed, we transform information into knowledge through systematic understanding. With 24 research papers and over 1.2M data points, we're building a foundation for conscious growth."
   },
-  skills: {
-    title: "Skills",
-    content: "Proficient in Three.js, React, Next.js, WebGL, and modern web development practices."
+  engineering: {
+    title: "Engineering Excellence",
+    content: "Our technical prowess turns knowledge into utility. Through 37 projects and 142 solutions, we're creating tools that make consciousness accessible and practical."
+  },
+  design: {
+    title: "Design Philosophy",
+    content: "We transform utility into behavior through user-centered thinking. With 89 prototypes and 312 user tests, we ensure our solutions resonate with human experience."
   },
   contact: {
-    title: "Contact",
-    content: "Let's connect! Feel free to reach out for collaborations, opportunities, or just to chat about web development."
+    title: "Begin Your Journey",
+    content: "Ready to explore conscious intentions? Connect with us to start your Thoughtseed journey and join a community dedicated to mindful growth and development."
   }
 };
 
@@ -31,12 +36,14 @@ function App() {
   const [showWaypoints, setShowWaypoints] = useState(false);
   const [showInstructions, setShowInstructions] = useState(true);
   const [modalContent, setModalContent] = useState(null);
+  const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
-    // Show instructions by default
-    tutorialRef.current.style.display = showInstructions ? "block" : "none";
-    thoughtseedRef.current.style.display = showInstructions ? "block" : "none";
-  }, [showInstructions]);
+    // Show instructions by default, but hide when moving
+    const shouldShow = showInstructions && !isMoving;
+    tutorialRef.current.style.display = shouldShow ? "block" : "none";
+    thoughtseedRef.current.style.display = shouldShow ? "block" : "none";
+  }, [showInstructions, isMoving]);
 
   const handleWaypointClick = (section) => {
     const content = SECTION_CONTENT[section];
@@ -51,9 +58,14 @@ function App() {
       <Scene 
         showWaypoints={showWaypoints} 
         onWaypointClick={handleWaypointClick}
+        onMovingChange={setIsMoving}
       />
       <WaypointsToggle onToggle={setShowWaypoints} isActive={showWaypoints} />
-      <InstructionsToggle onToggle={setShowInstructions} isActive={showInstructions} />
+      <InstructionsToggle 
+        onToggle={setShowInstructions} 
+        isActive={showInstructions} 
+        isMoving={isMoving}
+      />
       
       <Modal
         isOpen={!!modalContent}

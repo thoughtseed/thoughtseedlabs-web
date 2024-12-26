@@ -1,8 +1,10 @@
 import React from 'react';
 
-const InstructionsToggle = ({ onToggle, isActive }) => {
+const InstructionsToggle = ({ onToggle, isActive, isMoving }) => {
+  if (isMoving) return null;
+  
   return (
-    <button 
+    <div 
       className={`instructions-toggle ${isActive ? 'active' : ''}`}
       onClick={() => onToggle(!isActive)}
     >
@@ -11,8 +13,7 @@ const InstructionsToggle = ({ onToggle, isActive }) => {
         <line x1="12" y1="16" x2="12" y2="16"/>
         <line x1="12" y1="8" x2="12" y2="12"/>
       </svg>
-      <span>Instructions</span>
-    </button>
+    </div>
   );
 };
 

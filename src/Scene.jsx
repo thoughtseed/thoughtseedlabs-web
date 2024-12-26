@@ -1,5 +1,5 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import InfiniteSnowGround from "./components/InfiniteSnowGround";
 import Waypoints from "./components/Waypoints";
@@ -16,7 +16,8 @@ const CameraController = () => {
   return null;
 };
 
-const Scene = ({ showWaypoints, onWaypointClick }) => {
+const Scene = ({ showWaypoints, onWaypointClick, onMovingChange }) => {
+  const [playerPosition, setPlayerPosition] = useState(null);
   return (
     <Canvas camera={{ fov: 65 }} dpr={1}>
       <color attach="background" args={["white"]} />
@@ -26,10 +27,14 @@ const Scene = ({ showWaypoints, onWaypointClick }) => {
       <ambientLight intensity={1} />
 
       <CameraController />
-      <InfiniteSnowGround />
+      <InfiniteSnowGround 
+        onMovingChange={onMovingChange}
+        onPositionChange={setPlayerPosition}
+      />
       <Waypoints 
         visible={showWaypoints} 
         onWaypointClick={onWaypointClick}
+        playerPosition={playerPosition}
       />
 
       {/* <Stats /> */}
