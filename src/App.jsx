@@ -11,6 +11,7 @@ import Modal from "./components/Modal";
 import InfiniteSnowGround from "./components/InfiniteSnowGround";
 import { TimelineDemo } from "./components/TimelineDemo";
 import { ProgressCounter } from "./components/ProgressCounter";
+import ToggleGroup from "./components/ToggleGroup";
 
 // Waypoint positions for navigation
 const INNER_CIRCLE_POSITIONS = [
@@ -156,12 +157,14 @@ function App() {
       <div className="ui-layer">
         <ProgressCounter />
         <img src="/images/logo-dark-nobg.png" alt="Logo" className="logo" />
-        <WaypointsToggle onToggle={setWaypointsVisible} isActive={waypointsVisible} />
-        <InstructionsToggle 
-          onToggle={setInstructionsVisible} 
-          isActive={instructionsVisible}
-        />
-        <DirectionalHintToggle onToggle={setShowHints} isActive={showHints} />
+        <ToggleGroup>
+          <WaypointsToggle onToggle={setWaypointsVisible} isActive={waypointsVisible} />
+          <InstructionsToggle 
+            onToggle={setInstructionsVisible} 
+            isActive={instructionsVisible}
+          />
+          <DirectionalHintToggle onToggle={setShowHints} isActive={showHints} />
+        </ToggleGroup>
       </div>
       <DirectionalHint 
         playerPosition={playerPosition}

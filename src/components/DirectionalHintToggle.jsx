@@ -1,15 +1,19 @@
-import { Lightbulb } from 'lucide-react';
+import { Compass } from 'lucide-react';
+import { HoverBorderGradient } from './ui/hover-border-gradient';
+import { cn } from '../utils/helper-functions.js';
 
 const DirectionalHintToggle = ({ onToggle, isActive }) => {
   return (
-    <button 
-      className={`waypoints-toggle ${isActive ? 'active' : ''}`}
+    <HoverBorderGradient
       onClick={() => onToggle(!isActive)}
-      aria-label="Toggle Hints"
+      className={cn(
+        "text-black/80",
+        isActive && "bg-black/20"
+      )}
     >
-      <Lightbulb size={20} />
-      <span>Hints</span>
-    </button>
+      <Compass size={20} />
+      <span>Hint</span>
+    </HoverBorderGradient>
   );
 };
 

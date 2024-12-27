@@ -1,15 +1,19 @@
 import { Info } from 'lucide-react';
+import { HoverBorderGradient } from './ui/hover-border-gradient';
+import { cn } from '../utils/helper-functions.js';
 
 const InstructionsToggle = ({ onToggle, isActive }) => {
   return (
-    <button 
-      className={`waypoints-toggle ${isActive ? 'active' : ''}`}
+    <HoverBorderGradient
       onClick={() => onToggle(!isActive)}
-      aria-label="Toggle Instructions"
+      className={cn(
+        "text-black/80",
+        isActive && "bg-black/20"
+      )}
     >
       <Info size={20} />
       <span>Info</span>
-    </button>
+    </HoverBorderGradient>
   );
 };
 

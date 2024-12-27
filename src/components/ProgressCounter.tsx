@@ -7,7 +7,7 @@ export const ProgressCounter: React.FC<ProgressCounterProps> = () => {
   const { visitedWaypoints, totalWaypoints, progress } = useStore();
 
   return (
-    <div className="fixed top-4 right-4 z-50 bg-black bg-opacity-50 rounded-lg p-4 text-white font-bold">
+    <div className="fixed top-4 right-4 z-50 bg-black bg-opacity-40 rounded-lg p-4 text-white font-bold">
       <div className="flex items-center justify-center space-x-1">
         <span className="text-lg">{visitedWaypoints.length} / {totalWaypoints}</span>
         <span className="text-sm opacity-80">Completed</span>
