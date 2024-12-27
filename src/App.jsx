@@ -86,12 +86,28 @@ const SECTION_CONTENT = {
 function App() {
   const tutorialRef = useRef(null);
   const thoughtseedRef = useRef(null);
-  const { waypointsVisible, setWaypointsVisible, instructionsVisible, setInstructionsVisible } = useStore();
+  const { 
+    waypointsVisible, 
+    setWaypointsVisible, 
+    instructionsVisible, 
+    setInstructionsVisible,
+    isCompleted,
+    setTexture
+  } = useStore();
   const [showHints, setShowHints] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [playerPosition, setPlayerPosition] = useState(null);
   const [canShowInstructions, setCanShowInstructions] = useState(true);
+
+  // Handle completion
+  useEffect(() => {
+    if (isCompleted) {
+      setShowCompletionModal(true);
+      setTexture('/images/texture2.png');
+    }
+  }, [isCompleted, setTexture]);
 
   useEffect(() => {
     let timeoutId;
@@ -131,7 +147,7 @@ function App() {
   };
 
   return (
-    <div className="canvas-wrapper">
+    <div className="canvas-wrapper" style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <Scene 
         showWaypoints={waypointsVisible} 
         onWaypointClick={handleWaypointClick}
@@ -154,12 +170,25 @@ function App() {
         visible={showHints}
       />
       
+      {/* Content Modal */}
       <Modal
         isOpen={!!modalContent}
         onClose={() => setModalContent(null)}
         title={modalContent?.title}
       >
         {modalContent?.content}
+      </Modal>
+
+      {/* Completion Modal */}
+      <Modal
+        isOpen={showCompletionModal}
+        onClose={() => setShowCompletionModal(false)}
+        title="Congratulations!"
+        className="completion-modal"
+      >
+        <div className="text-center">
+          <p className="mb-6">You've discovered all the waypoints!</p>
+        </div>
       </Modal>
 
       <div ref={thoughtseedRef} className="thoughtseed-title">

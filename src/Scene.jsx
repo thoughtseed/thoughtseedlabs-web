@@ -20,7 +20,7 @@ const CameraController = () => {
 const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChange }) => {
   const [playerPosition, setPlayerPosition] = useState(null);
   return (
-    <Canvas camera={{ fov: 50 }} dpr={1} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
+    <Canvas camera={{ fov: 50 }} dpr={1} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
       <color attach="background" args={["transparent"]} />
 
       <directionalLight position={[4, 5, 0]} intensity={3} />

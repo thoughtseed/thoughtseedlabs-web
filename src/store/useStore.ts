@@ -15,7 +15,7 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>((set) => ({
-  texture: '/images/Origami 1.jpeg',
+  texture: '/images/texture2.png',
   setTexture: (texture) => set({ texture }),
   waypointsVisible: false,
   setWaypointsVisible: (visible) => set({ waypointsVisible: visible }),
@@ -39,7 +39,7 @@ export const useStore = create<StoreState>((set) => ({
     }),
   isCompleted: false,
   totalWaypoints: 9,
-  progress: 0,
+  progress: 0
 }))
 
 // Add keyboard event listener

@@ -428,8 +428,8 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
     // Update animation based on movement
     switchAnimation(isCurrentlyMoving ? WALK_ANIMATION : IDLE_ANIMATION);
 
-    // Update character position and rotation
-    if (characterParentRef.current) {
+  // Update character position and rotation
+  if (characterParentRef.current) {
       if (isCurrentlyMoving) {
         characterParentRef.current.position.addScaledVector(
           smoothMovement.current,
