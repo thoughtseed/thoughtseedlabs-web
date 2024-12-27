@@ -1,4 +1,5 @@
 import { Canvas, useThree } from "@react-three/fiber";
+import * as THREE from "three";
 import { useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import InfiniteSnowGround from "./components/InfiniteSnowGround";
@@ -9,18 +10,18 @@ const CameraController = () => {
   const { camera } = useThree();
   
   useEffect(() => {
-    camera.position.set(0, 30, 50);
-    camera.lookAt(0, 0, 0);
+    camera.position.set(0, 8, 50);  // Much lower height, even further back
+    camera.lookAt(0, 2, -5);  // Look slightly up and ahead
   }, [camera]);
   
   return null;
 };
 
-const Scene = ({ showWaypoints, onWaypointClick, onMovingChange }) => {
+const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChange }) => {
   const [playerPosition, setPlayerPosition] = useState(null);
   return (
-    <Canvas camera={{ fov: 65 }} dpr={1}>
-      <color attach="background" args={["white"]} />
+    <Canvas camera={{ fov: 50 }} dpr={1} style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
+      <color attach="background" args={["transparent"]} />
 
       <directionalLight position={[4, 5, 0]} intensity={3} />
 
@@ -29,7 +30,10 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange }) => {
       <CameraController />
       <InfiniteSnowGround 
         onMovingChange={onMovingChange}
-        onPositionChange={setPlayerPosition}
+        onPositionChange={(pos) => {
+          setPlayerPosition(pos);
+          onPositionChange?.(pos);
+        }}
       />
       <Waypoints 
         visible={showWaypoints} 
@@ -45,10 +49,11 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange }) => {
         enableRotate={true}
         enableZoom={true}
         enablePan={false}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2.5}
-        minDistance={30}
-        maxDistance={70}
+        minPolarAngle={Math.PI / 4}  // Prevent looking up too much
+        maxPolarAngle={Math.PI / 2.8}  // Prevent looking down too much
+        minDistance={40}  // Keep minimum distance further
+        maxDistance={60}  // Allow slightly more zoom out
+        target={new THREE.Vector3(0, 2, -5)}  // Match lookAt point
       />
 
       <FrameLimiter />
