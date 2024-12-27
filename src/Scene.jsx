@@ -49,10 +49,10 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChang
         enableRotate={true}
         enableZoom={true}
         enablePan={false}
-        minPolarAngle={Math.PI / 4}  // Prevent looking up too much
-        maxPolarAngle={Math.PI / 2.8}  // Prevent looking down too much
+        minPolarAngle={Math.PI / 3.5}  // More restricted upward angle
+        maxPolarAngle={Math.PI / 2.5}  // More restricted downward angle
         minDistance={40}  // Keep minimum distance further
-        maxDistance={60}  // Allow slightly more zoom out
+        maxDistance={50}  // Reduced max zoom to prevent white-wash effect
         target={new THREE.Vector3(0, 2, -5)}  // Match lookAt point
       />
 

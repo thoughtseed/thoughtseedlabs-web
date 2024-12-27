@@ -82,17 +82,17 @@
 .instructions-toggle,
 .directional-hint-toggle {
   @apply fixed z-50 flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur rounded-lg 
-         text-white/80 hover:text-white hover:bg-white/20 transition-all cursor-pointer;
+         text-black hover:text-black hover:bg-white/20 transition-all cursor-pointer;
 
   svg {
-    @apply w-5 h-5 text-white/80;
+    @apply w-5 h-5 text-black;
   }
 
   &.active {
-    @apply bg-white/20 text-white;
+    @apply bg-white/20 text-black;
     
     svg {
-      @apply text-white;
+      @apply text-black;
     }
   }
 }
@@ -117,6 +117,7 @@
 /* Tutorial */
 .tutorial-wrapper {
   @apply fixed bottom-8 left-1/2 transform -translate-x-1/2 z-10;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
 .tutorial-keys {
@@ -127,33 +128,34 @@
   @apply flex flex-col items-center gap-2;
 
   .top-key {
-    @apply w-8 h-8 flex items-center justify-center bg-white/10 backdrop-blur rounded text-sm text-white/80;
+    @apply w-8 h-8 flex items-center justify-center bg-white/10 backdrop-blur rounded text-sm text-black;
   }
 
   .bottom-row {
     @apply flex gap-2;
 
     span {
-      @apply w-8 h-8 flex items-center justify-center bg-white/10 backdrop-blur rounded text-sm text-white/80;
+      @apply w-8 h-8 flex items-center justify-center bg-white/10 backdrop-blur rounded text-sm text-black;
     }
   }
 }
 
 .mobile-tutorial {
-  @apply text-sm text-white/80;
+  @apply text-sm text-black;
 }
 
 /* Title */
 .thoughtseed-title {
-  @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10;
+  @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 p-4 bg-white/10 backdrop-blur rounded-lg;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
 .main-title {
-  @apply text-4xl md:text-6xl font-bold mb-2 text-white;
+  @apply text-4xl md:text-6xl font-bold mb-2 text-black;
 }
 
 .tagline {
-  @apply text-sm md:text-base text-white/80;
+  @apply text-xl md:text-2xl text-black;
 }
 
 /* Waypoints */
@@ -165,7 +167,7 @@
   }
 
   .waypoint-label {
-    @apply absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap text-sm text-white/80;
+    @apply absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap text-sm text-black;
   }
 
   &:hover {
@@ -174,21 +176,21 @@
     }
     
     .waypoint-label {
-      @apply text-white;
+      @apply text-black font-medium;
     }
   }
 }
 
 /* Directional Hint */
 .directional-hint {
-  @apply fixed bottom-24 left-1/2 transform -translate-x-1/2 z-10 
+  @apply fixed bottom-36 left-1/2 transform -translate-x-1/2 z-10
          flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur rounded-lg;
 
   svg {
-    @apply w-5 h-5 text-white/80;
+    @apply w-5 h-5 text-black;
   }
 
   span {
-    @apply text-sm text-white/80;
+    @apply text-sm text-black;
   }
 }

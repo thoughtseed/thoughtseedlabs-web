@@ -48,7 +48,7 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
 
   // Camera setup
   const { camera } = useThree();
-  const cameraOffset = useMemo(() => new THREE.Vector3(0, 20, 30), []);
+  const cameraOffset = useMemo(() => new THREE.Vector3(0, 15, 25), []);
   const cameraTargetRef = useRef(new THREE.Vector3());
 
   // State for movement and audio

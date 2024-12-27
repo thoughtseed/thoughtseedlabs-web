@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useStore } from "./store/useStore";
+import gsap from "gsap";
 import { isMobile, isTablet } from "react-device-detect";
 import Scene from "./Scene";
 import WaypointsToggle from "./components/WaypointsToggle";
@@ -83,8 +85,7 @@ const SECTION_CONTENT = {
 function App() {
   const tutorialRef = useRef(null);
   const thoughtseedRef = useRef(null);
-  const [showWaypoints, setShowWaypoints] = useState(false);
-  const [showInstructions, setShowInstructions] = useState(true);
+  const { waypointsVisible, setWaypointsVisible, instructionsVisible, setInstructionsVisible } = useStore();
   const [showHints, setShowHints] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [isMoving, setIsMoving] = useState(false);
@@ -110,10 +111,16 @@ function App() {
 
   useEffect(() => {
     // Show instructions by default, but hide when moving or during delay
-    const shouldShow = showInstructions && !isMoving && canShowInstructions;
-    tutorialRef.current.style.display = shouldShow ? "block" : "none";
-    thoughtseedRef.current.style.display = shouldShow ? "block" : "none";
-  }, [showInstructions, isMoving, canShowInstructions]);
+    const shouldShow = instructionsVisible && !isMoving && canShowInstructions;
+    if (tutorialRef.current) {
+      tutorialRef.current.style.opacity = shouldShow ? "1" : "0";
+      tutorialRef.current.style.visibility = shouldShow ? "visible" : "hidden";
+    }
+    if (thoughtseedRef.current) {
+      thoughtseedRef.current.style.opacity = shouldShow ? "1" : "0";
+      thoughtseedRef.current.style.visibility = shouldShow ? "visible" : "hidden";
+    }
+  }, [instructionsVisible, isMoving, canShowInstructions]);
 
   const handleWaypointClick = (section) => {
     const content = SECTION_CONTENT[section];
@@ -125,17 +132,17 @@ function App() {
   return (
     <div className="canvas-wrapper">
       <Scene 
-        showWaypoints={showWaypoints} 
+        showWaypoints={waypointsVisible} 
         onWaypointClick={handleWaypointClick}
         onMovingChange={setIsMoving}
         onPositionChange={setPlayerPosition}
       />
       <div className="ui-layer">
         <img src="/images/logo-dark.png" alt="Logo" className="logo" />
-        <WaypointsToggle onToggle={setShowWaypoints} isActive={showWaypoints} />
+        <WaypointsToggle onToggle={setWaypointsVisible} isActive={waypointsVisible} />
         <InstructionsToggle 
-          onToggle={setShowInstructions} 
-          isActive={showInstructions}
+          onToggle={setInstructionsVisible} 
+          isActive={instructionsVisible}
         />
         <DirectionalHintToggle onToggle={setShowHints} isActive={showHints} />
       </div>
