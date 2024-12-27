@@ -41,7 +41,6 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChang
         playerPosition={playerPosition}
       />
 
-      {/* <Stats /> */}
       <OrbitControls
         makeDefault
         enableDamping={true}
@@ -51,8 +50,8 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChang
         enablePan={false}
         minPolarAngle={Math.PI / 3.5}  // More restricted upward angle
         maxPolarAngle={Math.PI / 2.5}  // More restricted downward angle
-        minDistance={40}  // Keep minimum distance further
-        maxDistance={50}  // Reduced max zoom to prevent white-wash effect
+        minDistance={40}  // Reduced minimum distance for closer zoom
+        maxDistance={80}  // Kept max distance to prevent white-wash effect
         target={new THREE.Vector3(0, 2, -5)}  // Match lookAt point
       />
 

@@ -6,65 +6,75 @@ import { Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9 } from '.
 
 const ACTIVATION_RADIUS = 10;
 const FULL_VISIBILITY_RADIUS = 5;
+const PHI = 1.618033988749895; // Golden ratio
+const GOLDEN_ANGLE = 137.5 * (Math.PI / 180); // Golden angle in radians
+const BASE_RADIUS = 15; // Starting radius
 
-const ITEMS = [Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9];
+// Calculate Fibonacci spiral positions
+const calculateSpiralPosition = (n) => {
+    const radius = Math.min(BASE_RADIUS * Math.pow(PHI, n/2), 90); // Cap at 90 units
+    const angle = n * GOLDEN_ANGLE;
+    const x = radius * Math.cos(angle);
+    const z = -Math.abs(radius * Math.sin(angle)); // Negative Z to go away from spawn
+    return [x, 5, z];
+};
 
-// Primary Navigation - Inner circle (~50 unit radius)
+// Primary Navigation - Following Fibonacci spiral
 const INNER_CIRCLE_POSITIONS = [
   { 
-    position: [0, 5, -25],  // Center front
+    position: calculateSpiralPosition(0),  // Center (Our Approach)
     label: 'OUR APPROACH',
     color: '#4A90E2',
     ItemComponent: Item1
   },
   { 
-    position: [45, 5, -20],  // Right front
+    position: calculateSpiralPosition(1),  // First spiral point
     label: 'SERVICES',
     color: '#50E3C2',
     ItemComponent: Item2
   },
   { 
-    position: [-45, 5, -20], // Left front
+    position: calculateSpiralPosition(2), // Second spiral point
     label: 'PROJECTS',
     color: '#F5A623',
     ItemComponent: Item3
   },
   { 
-    position: [35, 5, -35], // Right mid
+    position: calculateSpiralPosition(3), // Third spiral point
     label: 'ABOUT US',
     color: '#B8E986',
     ItemComponent: Item4
   },
   { 
-    position: [-35, 5, -35], // Left mid
+    position: calculateSpiralPosition(4), // Fourth spiral point
     label: 'CONTACT US',
     color: '#9013FE',
     ItemComponent: Item5
   }
 ];
 
-// Outer circle - Using full 100 unit radius in half-circle
+// Outer circle - Continuing the spiral
 const OUTER_CIRCLE_POSITIONS = [
   {
-    position: [-90, 5, -40], // Far left
+    position: calculateSpiralPosition(5), // Fifth spiral point
     label: 'SCIENCE',
     color: '#FF4081',
     ItemComponent: Item6
   },
   {
-    position: [90, 5, -40], // Far right
+    position: calculateSpiralPosition(6), // Sixth spiral point
     label: 'ENGINEERING',
     color: '#00BCD4',
     ItemComponent: Item7
   },
   {
-    position: [-70, 5, -70], // Left back
+    position: calculateSpiralPosition(7), // Seventh spiral point
     label: 'DESIGN',
     color: '#FFC107',
     ItemComponent: Item8
   },
   {
-    position: [70, 5, -70], // Right back
+    position: calculateSpiralPosition(8), // Eighth spiral point
     label: 'ART',
     color: '#8BC34A',
     ItemComponent: Item9
