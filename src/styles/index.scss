@@ -19,15 +19,15 @@
   }
 
   .modal-content {
-    @apply relative w-full max-w-4xl max-h-[90vh] p-6 md:p-8 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl;
+    @apply relative w-full max-w-7xl max-h-[90vh] p-6 md:p-8 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl;
   }
 
   .modal-close {
-    @apply absolute top-4 right-4 text-2xl font-bold cursor-pointer text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors;
+    @apply absolute top-4 right-4 text-2xl font-bold cursor-pointer text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors z-50;
   }
 
   .modal-body {
-    @apply max-h-[calc(90vh-8rem)] overflow-y-auto pr-4;
+    @apply max-h-[calc(90vh-8rem)] overflow-y-auto;
 
     &::-webkit-scrollbar {
       @apply w-2;
@@ -54,19 +54,6 @@
     }
   }
 
-  .timeline-item {
-    @apply relative pb-8 last:pb-0;
-    
-    &::before {
-      content: '';
-      @apply absolute left-0 top-0 h-full w-px bg-neutral-200 dark:bg-neutral-700;
-    }
-    
-    &::after {
-      content: '';
-      @apply absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-neutral-400 dark:bg-neutral-500;
-    }
-  }
 }
 
 /* Original styles */
