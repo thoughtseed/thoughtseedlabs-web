@@ -15,7 +15,7 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>((set) => ({
-  texture: '/images/texture2.png',
+  texture: '/images/Origami 1.jpeg',
   setTexture: (texture) => set({ texture }),
   waypointsVisible: false,
   setWaypointsVisible: (visible) => set({ waypointsVisible: visible }),

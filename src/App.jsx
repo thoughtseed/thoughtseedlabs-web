@@ -105,9 +105,8 @@ function App() {
   useEffect(() => {
     if (isCompleted) {
       setShowCompletionModal(true);
-      setTexture('/images/texture2.png');
     }
-  }, [isCompleted, setTexture]);
+  }, [isCompleted]);
 
   useEffect(() => {
     let timeoutId;
@@ -182,12 +181,17 @@ function App() {
       {/* Completion Modal */}
       <Modal
         isOpen={showCompletionModal}
-        onClose={() => setShowCompletionModal(false)}
+        onClose={() => {
+          setTexture('/images/texture2.png');
+          setShowCompletionModal(false);
+        }}
         title="Congratulations!"
         className="completion-modal"
       >
-        <div className="text-center">
-          <p className="mb-6">You've discovered all the waypoints!</p>
+        <div className="prose prose-invert max-w-none">
+          <p className="text-lg leading-relaxed">
+            You've discovered all the waypoints! Your journey through Thoughtseed's landscape of conscious intentions is complete. Each waypoint has revealed a facet of our approach to cultivating mindful growth and transformation.
+          </p>
         </div>
       </Modal>
 
