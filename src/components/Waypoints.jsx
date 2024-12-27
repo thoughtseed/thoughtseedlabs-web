@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useThree } from '@react-three/fiber';
+import { useStore } from '../store/useStore';
 import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9 } from './Items/index';
@@ -84,6 +85,7 @@ const OUTER_CIRCLE_POSITIONS = [
 const WAYPOINT_POSITIONS = [...INNER_CIRCLE_POSITIONS, ...OUTER_CIRCLE_POSITIONS];
 
 const Waypoint = ({ position, label, color, onClick, playerPosition, ItemComponent }) => {
+  const { addVisitedWaypoint } = useStore();
   const meshRef = useRef();
   const [opacity, setOpacity] = useState(0);
   const [scale, setScale] = useState(0.5);
@@ -113,6 +115,11 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
     }
   }, [playerPosition, position]);
 
+  const handleClick = () => {
+    addVisitedWaypoint(label.toLowerCase());
+    onClick?.();
+  };
+
   const handlePointerOver = () => {
     document.body.style.cursor = 'pointer';
   };
@@ -124,7 +131,7 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
   return (
     <group position={position}>
       <group
-        onClick={onClick}
+        onClick={handleClick}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
         scale={scale}
@@ -145,7 +152,7 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
           anchorX="center"
           anchorY="middle"
           font={undefined}
-          onClick={onClick}
+          onClick={handleClick}
           onPointerOver={handlePointerOver}
           onPointerOut={handlePointerOut}
           material-transparent={true}

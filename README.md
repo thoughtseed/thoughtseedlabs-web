@@ -1,30 +1,117 @@
-# Dynamic Terrain Deformation with React Three Fiber
+# ThoughtSeed Interactive Experience
 
-_A demo showcasing real-time terrain reshaping through user interactions, optimized for performance and visual fidelity, built with React Three Fiber._
+An immersive 3D web experience built with React Three Fiber and Three.js that embodies ThoughtSeed's focus on conscious growth and transformation.
 
-https://github.com/user-attachments/assets/6759ad82-0591-429e-8957-44159911a053
+## Current Implementation
 
-[Article on Codrops](https://tympanus.net/codrops/?p=83147)
+### Core Experience
+- Immersive 3D snow environment with character navigation
+- Dynamic snow deformation responding to footsteps
+- Cinematic camera following with smooth controls
+- Ambient audio with footstep sounds
 
-[Demo](https://tympanus.net/Tutorials/DynamicTerrainDeformation/)
+### Navigation System
+- Interactive waypoints arranged in Fibonacci spiral pattern
+- Two-layer navigation structure:
+  - Inner Circle (Primary Navigation):
+    - Our Approach
+    - Services
+    - Projects
+    - About Us
+    - Contact Us
+  - Outer Circle (Krebs Cycle):
+    - Science
+    - Engineering
+    - Design
+    - Art
+- Each waypoint features:
+  - Custom 3D animated geometric elements
+  - Dynamic lighting with unique colors
+  - Proximity-based visibility and scaling
+  - Floating text labels with outlines
 
-## Installation
+### UI Elements
+- Clean, minimal interface with:
+  - ThoughtSeed logo
+  - Waypoints visibility toggle
+  - Movement instructions (WASD/arrow keys for desktop, touch for mobile)
+  - Directional hints system
+  - Modal system for content display
 
-Run this demo on a [local server](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server).
+### Content Structure
+Each section contains carefully crafted content about ThoughtSeed:
+- Our Approach: Focus on holistic methodology combining science and design
+- Services: Comprehensive suite for conscious growth
+- Projects: Interactive timeline showcasing transformative work
+- About Us: Company introduction and philosophy
+- Contact: Connection point for potential clients
 
-## Credits
+### Technical Features
+- Responsive design supporting desktop and mobile
+- Optimized performance with FPS limiting
+- Infinite terrain system with chunk loading/unloading
+- Advanced 3D graphics with normal mapping and displacement
+- Smooth animations and transitions using GSAP
 
-- "Antarctic Man" [Sketchfab](https://skfb.ly/ovJS8) by [Berk Gedik](https://sketchfab.com/berkgedik)
-- Snow textures from [AmbientCG](https://ambientcg.com/)
+## Planned Enhancements
 
-## Misc
+### Phase 1 - Core Progress System
+Foundation layer focusing on pure functionality:
+1. Add to useStore:
+   - visitedWaypoints array
+   - isCompleted flag
+   - waypoint visit tracking functions
+2. Create basic numerical counter (x/9)
+3. Implement waypoint visit detection
+4. Add completion state check
 
-Follow Oguzhan: [Twitter](https://x.com/otfnk), [Instagram](https://www.instagram.com/otfnk/), [GitHub](https://github.com/oguzhantufenk)
+### Phase 2 - Visual Progress Indicator
+Transform numerical tracking into visual experience:
+1. Create ProgressSymbol component:
+   - SVG-based sacred geometry in top-right
+   - 9 distinct layers for each waypoint
+   - Base layer always visible
+   - Additional layers reveal on visits
+2. Add visual effects:
+   - Glow effect using CSS filters
+   - Scale/opacity animations for layer reveals
+   - Light fill effect for visited states
 
-Follow Codrops: [Bluesky](https://bsky.app/profile/codrops.bsky.social), [Facebook](http://www.facebook.com/codrops), [GitHub](https://github.com/codrops), [Instagram](https://www.instagram.com/codropsss/), [X](http://www.x.com/codrops)
+### Phase 3 - Completion Rewards
+Add polish and celebration elements:
+1. CompletionMessage component:
+   - Three.js particle system for text
+   - Message: "You have awakened all nine seeds of consciousness. Your journey of understanding has just begun."
+2. Waypoint transformation:
+   - Add texture2 material to shader system
+   - Create transition effect from original to texture2
+3. Audio and animation:
+   - Add completion sound effect
+   - Coordinate particle message timing
+   - Synchronize texture transitions
 
-## License
+## Getting Started
 
-[MIT](LICENSE)
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+```
+3. Run the development server:
+```bash
+npm run dev
+```
 
-Made with :blue_heart: by [Oguzhan](http://www.codrops.com)
+## Controls
+- Desktop: WASD or Arrow keys for movement
+- Mobile: Touch and drag for movement
+- UI toggles for waypoints and hints
+- Click/tap waypoints to view content
+
+## Technologies Used
+- React
+- Three.js
+- React Three Fiber
+- GSAP
+- Tailwind CSS
+- TypeScript

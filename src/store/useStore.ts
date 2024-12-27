@@ -7,6 +7,11 @@ interface StoreState {
   setWaypointsVisible: (visible: boolean) => void
   instructionsVisible: boolean
   setInstructionsVisible: (visible: boolean) => void
+  visitedWaypoints: string[]
+  addVisitedWaypoint: (waypoint: string) => void
+  isCompleted: boolean
+  totalWaypoints: number
+  progress: number
 }
 
 export const useStore = create<StoreState>((set) => ({
@@ -16,6 +21,25 @@ export const useStore = create<StoreState>((set) => ({
   setWaypointsVisible: (visible) => set({ waypointsVisible: visible }),
   instructionsVisible: true,
   setInstructionsVisible: (visible) => set({ instructionsVisible: visible }),
+  visitedWaypoints: [],
+  addVisitedWaypoint: (waypoint) => 
+    set((state) => {
+      if (state.visitedWaypoints.includes(waypoint)) {
+        return state;
+      }
+      const newVisitedWaypoints = [...state.visitedWaypoints, waypoint];
+      const newProgress = (newVisitedWaypoints.length / state.totalWaypoints) * 100;
+      const newIsCompleted = newVisitedWaypoints.length === state.totalWaypoints;
+      
+      return {
+        visitedWaypoints: newVisitedWaypoints,
+        progress: newProgress,
+        isCompleted: newIsCompleted
+      };
+    }),
+  isCompleted: false,
+  totalWaypoints: 9,
+  progress: 0,
 }))
 
 // Add keyboard event listener
