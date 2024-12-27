@@ -9,62 +9,62 @@ const FULL_VISIBILITY_RADIUS = 5;
 
 const ITEMS = [Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9];
 
-// Primary Navigation - Inner circle
+// Primary Navigation - Inner circle (~50 unit radius)
 const INNER_CIRCLE_POSITIONS = [
   { 
-    position: [0, 5, -25],
+    position: [0, 5, -25],  // Center front
     label: 'OUR APPROACH',
     color: '#4A90E2',
     ItemComponent: Item1
   },
   { 
-    position: [35, 5, -35],
+    position: [45, 5, -20],  // Right front
     label: 'SERVICES',
     color: '#50E3C2',
     ItemComponent: Item2
   },
   { 
-    position: [-35, 5, -95],
+    position: [-45, 5, -20], // Left front
     label: 'PROJECTS',
     color: '#F5A623',
     ItemComponent: Item3
   },
   { 
-    position: [25, 5, -55],
+    position: [35, 5, -35], // Right mid
     label: 'ABOUT US',
     color: '#B8E986',
     ItemComponent: Item4
   },
   { 
-    position: [-25, 5, -55],
+    position: [-35, 5, -35], // Left mid
     label: 'CONTACT US',
     color: '#9013FE',
     ItemComponent: Item5
   }
 ];
 
-// Outer circle - Using full radius in all directions
+// Outer circle - Using full 100 unit radius in half-circle
 const OUTER_CIRCLE_POSITIONS = [
   {
-    position: [-95, 5, 0],
+    position: [-90, 5, -40], // Far left
     label: 'SCIENCE',
     color: '#FF4081',
     ItemComponent: Item6
   },
   {
-    position: [95, 5, 0],
+    position: [90, 5, -40], // Far right
     label: 'ENGINEERING',
     color: '#00BCD4',
     ItemComponent: Item7
   },
   {
-    position: [-95, 5, -45],
+    position: [-70, 5, -70], // Left back
     label: 'DESIGN',
     color: '#FFC107',
     ItemComponent: Item8
   },
   {
-    position: [95, 5, -45],
+    position: [70, 5, -70], // Right back
     label: 'ART',
     color: '#8BC34A',
     ItemComponent: Item9
@@ -152,7 +152,7 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
           strokeColor="#000000"
           strokeOpacity={1}
           fillOpacity={1}
-          fontWeight={800} // Added heavy font weight
+          fontWeight={800}
         >
           {label}
         </Text>
