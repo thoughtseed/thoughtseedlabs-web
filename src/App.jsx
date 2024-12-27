@@ -138,7 +138,7 @@ function App() {
         onPositionChange={setPlayerPosition}
       />
       <div className="ui-layer">
-        <img src="/images/logo-dark.png" alt="Logo" className="logo" />
+        <img src="/images/logo-dark-nobg.png" alt="Logo" className="logo" />
         <WaypointsToggle onToggle={setWaypointsVisible} isActive={waypointsVisible} />
         <InstructionsToggle 
           onToggle={setInstructionsVisible} 
