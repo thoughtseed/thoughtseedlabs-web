@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useStore } from "./store/useStore";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import gsap from "gsap";
 import { isMobile, isTablet } from "react-device-detect";
 import Scene from "./Scene";
@@ -230,6 +231,7 @@ function App() {
           </div>
         )}
       </div>
+      <SpeedInsights />
     </div>
   );
 }
