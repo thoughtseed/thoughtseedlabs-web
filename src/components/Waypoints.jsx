@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import { useStore } from '../store/useStore';
+import { useAudio } from '../hooks/useAudio';
 import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9 } from './Items/index';
@@ -86,9 +87,11 @@ const WAYPOINT_POSITIONS = [...INNER_CIRCLE_POSITIONS, ...OUTER_CIRCLE_POSITIONS
 
 const Waypoint = ({ position, label, color, onClick, playerPosition, ItemComponent }) => {
   const { addVisitedWaypoint } = useStore();
+  const { playWaypointSound } = useAudio();
   const meshRef = useRef();
   const [opacity, setOpacity] = useState(0);
   const [scale, setScale] = useState(0.5);
+  const wasInRadius = useRef(false);
   
   useEffect(() => {
     if (meshRef.current) {
@@ -99,6 +102,13 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
   useEffect(() => {
     if (playerPosition) {
       const distance = new THREE.Vector3(...position).distanceTo(new THREE.Vector3(...playerPosition));
+      const isInRadius = distance <= ACTIVATION_RADIUS;
+      
+      // Play sound when entering radius
+      if (isInRadius && !wasInRadius.current) {
+        playWaypointSound({ x: position[0], y: position[1], z: position[2] });
+      }
+      wasInRadius.current = isInRadius;
       
       if (distance > ACTIVATION_RADIUS) {
         setOpacity(0);
@@ -113,7 +123,7 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
         setScale(0.5 + (progress * 0.8));
       }
     }
-  }, [playerPosition, position]);
+  }, [playerPosition, position, playWaypointSound]);
 
   const handleClick = () => {
     addVisitedWaypoint(label.toLowerCase());

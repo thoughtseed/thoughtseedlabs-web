@@ -158,6 +158,19 @@
   @apply text-xl md:text-2xl text-black;
 }
 
+/* Audio Controls */
+.audio-controls {
+  @apply fixed bottom-8 right-8 z-50 pointer-events-auto;
+  
+  button {
+    @apply bg-white/20 hover:bg-white/30;
+    
+    &.muted {
+      @apply bg-black/30;
+    }
+  }
+}
+
 /* Waypoints */
 .waypoint {
   @apply absolute cursor-pointer;

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useStore } from "./store/useStore";
+import { useAudio } from "./hooks/useAudio";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import gsap from "gsap";
 import { isMobile, isTablet } from "react-device-detect";
@@ -13,6 +14,7 @@ import InfiniteSnowGround from "./components/InfiniteSnowGround";
 import { TimelineDemo } from "./components/TimelineDemo";
 import { ProgressCounter } from "./components/ProgressCounter";
 import ToggleGroup from "./components/ToggleGroup";
+import { AudioControls } from "./components/AudioControls";
 
 // Waypoint positions for navigation
 const INNER_CIRCLE_POSITIONS = [
@@ -166,6 +168,7 @@ function App() {
           />
           <DirectionalHintToggle onToggle={setShowHints} isActive={showHints} />
         </ToggleGroup>
+        <AudioControls />
       </div>
       <DirectionalHint 
         playerPosition={playerPosition}

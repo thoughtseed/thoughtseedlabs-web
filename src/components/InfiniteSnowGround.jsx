@@ -1,4 +1,5 @@
 import { useRef, useEffect, useMemo, useState, useCallback } from "react";
+import { useAudio } from "../hooks/useAudio";
 import { useThree, useFrame } from "@react-three/fiber";
 import {
   useTexture,
