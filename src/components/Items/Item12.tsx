@@ -41,7 +41,7 @@ export const Item12 = () => {
     <Center ref={groupRef}>
       <mesh ref={octaRef}>
         <octahedronGeometry args={[1.6]}></octahedronGeometry>
-        <CustomMaterial></CustomMaterial>
+        <CustomMaterial isPlatonicSolid={true}></CustomMaterial>
       </mesh>
     </Center>
   );

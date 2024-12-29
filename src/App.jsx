@@ -167,6 +167,10 @@ function App() {
   const handleWaypointClick = (section) => {
     const content = SECTION_CONTENT[section];
     if (content) {
+      // Set texture3.jpeg for platonic solids (Items 10-14)
+      if (['foundation of consciousness', 'stability of mind', 'balance of thought', 'harmony of being', 'infinite potential'].includes(section)) {
+        setTexture('/images/texture3.jpeg');
+      }
       setModalContent(content);
     }
   };

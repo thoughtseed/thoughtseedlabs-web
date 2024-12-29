@@ -41,7 +41,7 @@ export const Item14 = () => {
     <Center ref={groupRef}>
       <mesh ref={icosaRef}>
         <icosahedronGeometry args={[1.2]}></icosahedronGeometry>
-        <CustomMaterial></CustomMaterial>
+        <CustomMaterial isPlatonicSolid={true}></CustomMaterial>
       </mesh>
     </Center>
   );

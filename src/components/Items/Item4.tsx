@@ -9,13 +9,13 @@ import { useStore } from "../../store/useStore";
 
 export const CustomMaterial = forwardRef<
   MeshMatcapMaterial,
-  MeshMatcapMaterialProps
+  MeshMatcapMaterialProps & { isPlatonicSolid?: boolean }
 >((props, ref) => {
-  const matcap = useStore((x) => x.texture);
-  const texture = useTexture(matcap);
+  const { isPlatonicSolid, ...otherProps } = props;
+  const texture = useTexture(isPlatonicSolid ? '/images/texture3.jpeg' : useStore((x) => x.texture));
   return (
     <meshMatcapMaterial
-      {...props}
+      {...otherProps}
       ref={ref}
       matcap={texture}
     ></meshMatcapMaterial>
