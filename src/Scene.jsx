@@ -1,4 +1,5 @@
 import { Canvas, useThree } from "@react-three/fiber";
+import SimpleSnowEffect from "./components/SimpleSnowEffect";
 import * as THREE from "three";
 import { useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
@@ -20,6 +21,7 @@ const CameraController = () => {
 const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChange }) => {
   const [playerPosition, setPlayerPosition] = useState(null);
   return (
+    <>
     <Canvas camera={{ fov: 50 }} dpr={1} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
       <color attach="background" args={[0xffffff]} />
 
@@ -57,6 +59,8 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChang
 
       <FrameLimiter />
     </Canvas>
+    <SimpleSnowEffect />
+    </>
   );
 };
 

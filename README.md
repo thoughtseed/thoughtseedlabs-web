@@ -120,3 +120,33 @@ Each waypoint is represented by a unique 3D geometric composition that reflects 
 - Audio resource management
 
 This project demonstrates the potential of modern web technologies to create engaging, interactive experiences that combine storytelling with technical innovation. The careful attention to performance, user experience, and visual design creates a memorable journey through a dynamic 3D environment.
+
+## Upcoming Features & Enhancements
+
+### Audio & Achievement System
+- [ ] Extend useStore to track achievement completion states
+- [ ] Create new audio state for 9-waypoint completion
+- [ ] Implement smooth audio crossfade system in AudioModal.tsx
+- [ ] Fix achievement icon rendering in modal component
+- [ ] Add achievement completion sound effects
+
+### Waypoint System Improvements
+- [ ] Create secondary progress bar component for hidden waypoints
+- [ ] Implement minimum distance validation (50 units) between main and hidden waypoints
+- [ ] Optimize waypoint placement algorithm in Waypoints.jsx
+- [ ] Add visual indicators to distinguish hidden waypoints
+- [ ] Update useStore to track both main and hidden waypoint progress
+
+### Advanced Visual Effects
+- [ ] Import and integrate Spline portal model
+- [ ] Create PortalEffect component with terrain deformation triggers
+- [ ] Implement character glow shader with electric blue effect
+- [ ] Create TextRevealEffect component for thoughtseed text
+- [ ] Implement WaylineGuidance system for visited waypoint navigation
+- [ ] Add portal activation logic tied to completion state
+
+### Technical Dependencies
+- Spline SDK for portal model integration
+- Custom shaders for character glow effect
+- Enhanced state management for dual progress tracking
+- Pathfinding system for wayline guidance
