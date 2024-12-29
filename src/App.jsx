@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useStore } from "./store/useStore";
 import { useAudio } from "./hooks/useAudio";
+import AudioModal from "./components/AudioModal";
+import AchievementIcon from "./components/AchievementIcon";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import gsap from "gsap";
 import { isMobile, isTablet } from "react-device-detect";
@@ -118,7 +120,8 @@ function App() {
     instructionsVisible, 
     setInstructionsVisible,
     isCompleted,
-    setTexture
+    setTexture,
+    setShowAchievementIcon
   } = useStore();
   const [showHints, setShowHints] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -130,9 +133,9 @@ function App() {
   // Handle completion
   useEffect(() => {
     if (isCompleted) {
-      setShowCompletionModal(true);
+      setShowAchievementIcon(true);
     }
-  }, [isCompleted]);
+  }, [isCompleted, setShowAchievementIcon]);
 
   useEffect(() => {
     let timeoutId;
@@ -211,22 +214,8 @@ function App() {
         {modalContent?.content}
       </Modal>
 
-      {/* Completion Modal */}
-      <Modal
-        isOpen={showCompletionModal}
-        onClose={() => {
-          setTexture('/images/texture2.png');
-          setShowCompletionModal(false);
-        }}
-        title="Congratulations!"
-        className="completion-modal"
-      >
-        <div className="prose prose-invert max-w-none">
-          <p className="text-lg leading-relaxed">
-            You've discovered all the waypoints! Your journey through Thoughtseed's landscape of conscious intentions is complete. Each waypoint has revealed a facet of our approach to cultivating mindful growth and transformation.
-          </p>
-        </div>
-      </Modal>
+      <AudioModal />
+      <AchievementIcon />
 
       <div ref={thoughtseedRef} className="thoughtseed-title">
         <div className="main-title">THOUGHTSEED</div>
