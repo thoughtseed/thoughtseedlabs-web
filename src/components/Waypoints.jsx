@@ -5,6 +5,7 @@ import { useAudio } from '../hooks/useAudio';
 import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, Item11, Item12, Item13, Item14 } from './Items/index';
+import { CustomMaterial } from './Items/Item4';
 
 const ACTIVATION_RADIUS = 10;
 const FULL_VISIBILITY_RADIUS = 5;
@@ -92,10 +93,11 @@ const HIDDEN_RADIUS = Math.sqrt(
 
 // Calculate positions along an arc
 const calculateArcPosition = (index, totalPoints) => {
-  // Arc spans 120 degrees (2π/3 radians) for good visibility
-  const arcAngle = (2 * Math.PI) / 3;
+  // Arc spans from -40 to 40 degrees, mirrored on both sides
+  const startAngle = -40 * (Math.PI / 180); // Convert to radians
+  const endAngle = 40 * (Math.PI / 180);
   // Distribute points evenly along arc
-  const angle = (arcAngle * index) / (totalPoints - 1);
+  const angle = startAngle + (index * (endAngle - startAngle) / (totalPoints - 1));
   // Calculate position
   const x = HIDDEN_RADIUS * Math.cos(angle);
   const z = -HIDDEN_RADIUS * Math.sin(angle); // Negative for same direction as spiral
@@ -179,7 +181,11 @@ const Waypoint = ({ position, label, color, onClick, playerPosition, ItemCompone
   }, [playerPosition, position, playWaypointSound]);
 
   const handleClick = () => {
-    addVisitedWaypoint(label.toLowerCase());
+    // Only add to visited waypoints if it's not a hidden waypoint
+    const isHiddenWaypoint = HIDDEN_WAYPOINTS.some(wp => wp.label === label);
+    if (!isHiddenWaypoint) {
+      addVisitedWaypoint(label.toLowerCase());
+    }
     onClick?.();
   };
 

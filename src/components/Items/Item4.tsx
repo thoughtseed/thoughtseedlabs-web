@@ -12,7 +12,7 @@ export const CustomMaterial = forwardRef<
   MeshMatcapMaterialProps & { isPlatonicSolid?: boolean }
 >((props, ref) => {
   const { isPlatonicSolid, ...otherProps } = props;
-  const texture = useTexture(isPlatonicSolid ? '/images/texture3.jpeg' : useStore((x) => x.texture));
+  const texture = useTexture(useStore((x) => x.texture));
   return (
     <meshMatcapMaterial
       {...otherProps}
