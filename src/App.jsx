@@ -84,6 +84,28 @@ const SECTION_CONTENT = {
   art: {
     title: "The Art of Transformation",
     content: "Art is our bridge between science and human experience. Through creative expression and aesthetic innovation, we make complex concepts accessible and create immersive experiences that catalyze personal growth."
+  },
+
+  // Platonic Solids - Hidden Waypoints
+  "foundation of consciousness": {
+    title: "Foundation of Consciousness",
+    content: "The tetrahedron represents the fundamental building blocks of conscious awareness. Like its four faces meeting at perfect points, consciousness arises from the precise intersection of perception, awareness, intention, and presence. This foundational structure teaches us that even the most complex states of being emerge from simple, elegant principles."
+  },
+  "stability of mind": {
+    title: "Stability of Mind",
+    content: "The cube symbolizes mental stability and grounding. Its six equal faces represent the balanced aspects of mindful living: awareness, intention, practice, persistence, patience, and presence. Like a cube's perfect symmetry, a stable mind provides a solid foundation for personal growth and transformation."
+  },
+  "balance of thought": {
+    title: "Balance of Thought",
+    content: "The octahedron embodies the dynamic balance of thought processes. Its eight faces represent the harmonious integration of different modes of thinking: analytical and intuitive, creative and practical, emotional and rational, reflective and active. This balance is essential for holistic understanding and growth."
+  },
+  "harmony of being": {
+    title: "Harmony of Being",
+    content: "The dodecahedron, with its twelve faces, represents the harmony of existence. Each face symbolizes an aspect of conscious living: mindfulness, compassion, wisdom, resilience, creativity, connection, growth, purpose, authenticity, gratitude, presence, and transformation. Together, they create a complete framework for harmonious being."
+  },
+  "infinite potential": {
+    title: "Infinite Potential",
+    content: "The icosahedron, with its twenty faces, symbolizes the boundless potential within consciousness. Each face represents a facet of possibility, reminding us that our capacity for growth, understanding, and transformation is limitless. Like the infinite reflections in its symmetrical structure, our consciousness contains endless possibilities for evolution and expansion."
   }
 };
 

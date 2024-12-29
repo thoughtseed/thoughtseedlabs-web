@@ -40,19 +40,19 @@ export const useAudioStore = create<AudioState>()(
 
 const AUDIO_CONFIG = {
   bgm: {
-    src: '/audio/Digital-Snowfall.mp3',
-    baseVolume: 0.5, // 50% max volume
+    src: '/audio/Digital-Snowfall.wav',
+    baseVolume: 0.15, // Reduced base volume
     fadeTime: 3000, // 3 second fade
     startDelay: 1000, // 1 second delay before starting fade in
   },
   ui: {
     src: '/audio/Mindful-Touch.mp3',
-    baseVolume: 0.7,
+    baseVolume: 0.4,
     fadeTime: 150, // Quick fade for UI sounds
   },
   waypoint: {
     src: '/audio/Subtle-Touches.mp3',
-    baseVolume: 0.6,
+    baseVolume: 0.7,
     fadeTime: 300,
   },
 };
@@ -88,6 +88,22 @@ export const useAudio = () => {
           volume: 0, // Start at 0 for fade in
           loop: true,
           autoplay: false,
+          html5: true,
+          format: ['wav'],
+          onload: function() {
+            const sound = this;
+            const ctx = Howler.ctx;
+            // Create compressor node for dynamic range control
+            const compressor = ctx.createDynamicsCompressor();
+            compressor.threshold.value = -24;  // Start compressing at -24dB
+            compressor.knee.value = 30;        // Smooth compression curve
+            compressor.ratio.value = 12;       // Compression ratio
+            compressor.attack.value = 0.003;   // Quick attack
+            compressor.release.value = 0.25;   // Moderate release
+            // Connect nodes
+            sound._sounds[0]._node.connect(compressor);
+            compressor.connect(ctx.destination);
+          }
         } as any),
         baseVolume: AUDIO_CONFIG.bgm.baseVolume,
         fadeTime: AUDIO_CONFIG.bgm.fadeTime,

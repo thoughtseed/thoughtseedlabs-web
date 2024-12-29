@@ -20,8 +20,8 @@ export const Item9 = () => {
     refList.current.forEach((mesh, index) => {
       if (mesh) {
         gsap.to(mesh.scale, {
-          x: 0.3,
-          z: 0.3,
+          x: 0.6,
+          z: 0.6,
           delay: 0.25 * index,
           repeat: -1,
           yoyo: true,

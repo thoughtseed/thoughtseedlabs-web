@@ -4,7 +4,7 @@ import { useStore } from '../store/useStore';
 import { useAudio } from '../hooks/useAudio';
 import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
-import { Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9 } from './Items/index';
+import { Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, Item11, Item12, Item13, Item14 } from './Items/index';
 
 const ACTIVATION_RADIUS = 10;
 const FULL_VISIBILITY_RADIUS = 5;
@@ -83,7 +83,60 @@ const OUTER_CIRCLE_POSITIONS = [
   }
 ];
 
-const WAYPOINT_POSITIONS = [...INNER_CIRCLE_POSITIONS, ...OUTER_CIRCLE_POSITIONS];
+// Calculate the radius from spawn point to tetrahedron
+const tetraPosition = calculateSpiralPosition(9);
+const HIDDEN_RADIUS = Math.sqrt(
+  tetraPosition[0] * tetraPosition[0] + 
+  tetraPosition[2] * tetraPosition[2]
+);
+
+// Calculate positions along an arc
+const calculateArcPosition = (index, totalPoints) => {
+  // Arc spans 120 degrees (2π/3 radians) for good visibility
+  const arcAngle = (2 * Math.PI) / 3;
+  // Distribute points evenly along arc
+  const angle = (arcAngle * index) / (totalPoints - 1);
+  // Calculate position
+  const x = HIDDEN_RADIUS * Math.cos(angle);
+  const z = -HIDDEN_RADIUS * Math.sin(angle); // Negative for same direction as spiral
+  return [x, 5, z];
+};
+
+// Hidden easter egg waypoints - Platonic solids
+const HIDDEN_WAYPOINTS = [
+  {
+    position: calculateSpiralPosition(9), // Tetrahedron at spiral point
+    label: 'FOUNDATION OF CONSCIOUSNESS',
+    color: '#E91E63',
+    ItemComponent: Item10
+  },
+  {
+    position: calculateArcPosition(0, 4), // First point on arc
+    label: 'STABILITY OF MIND',
+    color: '#9C27B0',
+    ItemComponent: Item11
+  },
+  {
+    position: calculateArcPosition(1, 4), // Second point on arc
+    label: 'BALANCE OF THOUGHT',
+    color: '#FF9800',
+    ItemComponent: Item12
+  },
+  {
+    position: calculateArcPosition(2, 4), // Third point on arc
+    label: 'HARMONY OF BEING',
+    color: '#4CAF50',
+    ItemComponent: Item13
+  },
+  {
+    position: calculateArcPosition(3, 4), // Fourth point on arc
+    label: 'INFINITE POTENTIAL',
+    color: '#2196F3',
+    ItemComponent: Item14
+  }
+];
+
+const WAYPOINT_POSITIONS = [...INNER_CIRCLE_POSITIONS, ...OUTER_CIRCLE_POSITIONS, ...HIDDEN_WAYPOINTS];
 
 const Waypoint = ({ position, label, color, onClick, playerPosition, ItemComponent }) => {
   const { addVisitedWaypoint } = useStore();
