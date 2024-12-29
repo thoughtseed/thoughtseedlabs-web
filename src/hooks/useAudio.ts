@@ -1,38 +1,36 @@
-import { Howl, HowlOptions } from 'howler';
+import { Howl, Howler } from 'howler';
 import { useEffect, useRef, useCallback } from 'react';
 import { useStore } from '../store/useStore';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+// Audio groups for better control
+type AudioGroup = {
+  sound: Howl;
+  baseVolume: number;
+  fadeTime: number;
+};
+
+interface AudioGroups {
+  bgm: AudioGroup;
+  ui: AudioGroup;
+  waypoints: AudioGroup;
+}
+
 interface AudioState {
-  bgmVolume: number;
   waypointSoundsEnabled: boolean;
   toggleSoundsEnabled: boolean;
   isMuted: boolean;
+  fadeDuration: number;
 }
 
-// Extend HowlOptions to include pannerAttr
-interface ExtendedHowlOptions extends HowlOptions {
-  pannerAttr?: {
-    panningModel: 'HRTF' | 'equalpower';
-    distanceModel: 'inverse' | 'linear' | 'exponential';
-    refDistance: number;
-    maxDistance: number;
-    rolloffFactor: number;
-    coneInnerAngle: number;
-    coneOuterAngle: number;
-    coneOuterGain: number;
-  };
-}
-
-// Audio store for managing global audio states with persistence
 export const useAudioStore = create<AudioState>()(
   persist(
     (set) => ({
-      bgmVolume: 0.3, // Set to 30%
       waypointSoundsEnabled: true,
       toggleSoundsEnabled: true,
       isMuted: false,
+      fadeDuration: 2000, // 2 seconds fade duration
     }),
     {
       name: 'audio-storage',
@@ -43,131 +41,162 @@ export const useAudioStore = create<AudioState>()(
 const AUDIO_CONFIG = {
   bgm: {
     src: '/audio/Digital-Snowfall.mp3',
-    volume: 0.3, // 30% volume
-    fadeTime: 2000,
+    baseVolume: 0.5, // 50% max volume
+    fadeTime: 3000, // 3 second fade
+    startDelay: 1000, // 1 second delay before starting fade in
   },
-  toggle: {
+  ui: {
     src: '/audio/Mindful-Touch.mp3',
-    volume: 0.7,
+    baseVolume: 0.7,
+    fadeTime: 150, // Quick fade for UI sounds
   },
   waypoint: {
     src: '/audio/Subtle-Touches.mp3',
-    volume: 0.6,
+    baseVolume: 0.6,
+    fadeTime: 300,
   },
 };
 
 export const useAudio = () => {
-  const bgmRef = useRef<Howl | null>(null);
-  const toggleSoundRef = useRef<Howl | null>(null);
-  const waypointSoundRef = useRef<Howl | null>(null);
+  const audioGroupsRef = useRef<AudioGroups | null>(null);
   const bgmInitializedRef = useRef(false);
+  const fadeTimeoutRef = useRef<number | null>(null);
 
-  // Initialize sounds
+  // Keep Howler's global mute state in sync with our store
+  useEffect(() => {
+    const unsubscribe = useAudioStore.subscribe((state) => {
+      Howler.mute(state.isMuted);
+    });
+
+    // Set initial state
+    Howler.mute(useAudioStore.getState().isMuted);
+
+    return () => unsubscribe();
+  }, []);
+
+  // Initialize audio groups
   useEffect(() => {
     if (bgmInitializedRef.current) return;
 
     const isMuted = useAudioStore.getState().isMuted;
-    const initialVolume = isMuted ? 0 : AUDIO_CONFIG.bgm.volume;
 
-    // Initialize Howl instances
-    bgmRef.current = new Howl({
-      src: [AUDIO_CONFIG.bgm.src],
-      volume: initialVolume,
-      loop: true,
-      autoplay: false,
-    } as ExtendedHowlOptions);
-
-    toggleSoundRef.current = new Howl({
-      src: [AUDIO_CONFIG.toggle.src],
-      volume: isMuted ? 0 : AUDIO_CONFIG.toggle.volume,
-    } as ExtendedHowlOptions);
-
-    waypointSoundRef.current = new Howl({
-      src: [AUDIO_CONFIG.waypoint.src],
-      volume: isMuted ? 0 : AUDIO_CONFIG.waypoint.volume,
-      pannerAttr: {
-        panningModel: 'HRTF',
-        distanceModel: 'inverse',
-        refDistance: 1,
-        maxDistance: 10000,
-        rolloffFactor: 1,
-        coneInnerAngle: 360,
-        coneOuterAngle: 360,
-        coneOuterGain: 0
+    // Create audio groups with initial setup
+    audioGroupsRef.current = {
+      bgm: {
+        sound: new Howl({
+          src: [AUDIO_CONFIG.bgm.src],
+          volume: 0, // Start at 0 for fade in
+          loop: true,
+          autoplay: false,
+        } as any),
+        baseVolume: AUDIO_CONFIG.bgm.baseVolume,
+        fadeTime: AUDIO_CONFIG.bgm.fadeTime,
+      },
+      ui: {
+        sound: new Howl({
+          src: [AUDIO_CONFIG.ui.src],
+          volume: AUDIO_CONFIG.ui.baseVolume,
+        } as any),
+        baseVolume: AUDIO_CONFIG.ui.baseVolume,
+        fadeTime: AUDIO_CONFIG.ui.fadeTime,
+      },
+      waypoints: {
+        sound: new Howl({
+          src: [AUDIO_CONFIG.waypoint.src],
+          volume: AUDIO_CONFIG.waypoint.baseVolume,
+          pannerAttr: {
+            panningModel: 'HRTF',
+            distanceModel: 'inverse',
+            refDistance: 1,
+            maxDistance: 10000,
+            rolloffFactor: 1,
+            coneInnerAngle: 360,
+            coneOuterAngle: 360,
+            coneOuterGain: 0
+          }
+        } as any),
+        baseVolume: AUDIO_CONFIG.waypoint.baseVolume,
+        fadeTime: AUDIO_CONFIG.waypoint.fadeTime,
       }
-    } as ExtendedHowlOptions);
+    };
 
-    // Initialize BGM state based on mute status
-    const timer = setTimeout(() => {
-      if (bgmRef.current && !bgmInitializedRef.current) {
-        if (!isMuted) {
-          bgmRef.current.play();
-          bgmRef.current.volume(AUDIO_CONFIG.bgm.volume);
-        } else {
-          // If muted, load but don't play
-          bgmRef.current.load();
-        }
+    // Initialize BGM with fade in
+    fadeTimeoutRef.current = window.setTimeout(() => {
+      if (audioGroupsRef.current && !bgmInitializedRef.current) {
+        const { sound, baseVolume, fadeTime } = audioGroupsRef.current.bgm;
+        sound.play();
+        sound.fade(0, baseVolume, fadeTime);
         bgmInitializedRef.current = true;
       }
-    }, 1000);
+    }, AUDIO_CONFIG.bgm.startDelay);
 
     return () => {
-      clearTimeout(timer);
+      if (fadeTimeoutRef.current) {
+        window.clearTimeout(fadeTimeoutRef.current);
+      }
     };
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      bgmRef.current?.unload();
-      toggleSoundRef.current?.unload();
-      waypointSoundRef.current?.unload();
+      if (audioGroupsRef.current) {
+        Object.values(audioGroupsRef.current).forEach(group => {
+          group.sound.unload();
+        });
+      }
     };
   }, []);
 
   const toggleMute = useCallback(() => {
-    if (!bgmRef.current) return;
-    
     const isMuted = useAudioStore.getState().isMuted;
     const newMutedState = !isMuted;
     
-    if (newMutedState) {
-      // When muting - stop all sounds completely
-      bgmRef.current.stop();
-      bgmRef.current.volume(0);
-      if (toggleSoundRef.current) {
-        toggleSoundRef.current.stop();
-        toggleSoundRef.current.volume(0);
-      }
-      if (waypointSoundRef.current) {
-        waypointSoundRef.current.stop();
-        waypointSoundRef.current.volume(0);
-      }
-    } else {
-      // When unmuting - start fresh with correct volumes
-      bgmRef.current.volume(AUDIO_CONFIG.bgm.volume);
-      bgmRef.current.play();
-      if (toggleSoundRef.current) toggleSoundRef.current.volume(AUDIO_CONFIG.toggle.volume);
-      if (waypointSoundRef.current) waypointSoundRef.current.volume(AUDIO_CONFIG.waypoint.volume);
-    }
+    // Use Howler's global mute
+    Howler.mute(newMutedState);
     
     useAudioStore.setState({ 
       isMuted: newMutedState,
-      toggleSoundsEnabled: !newMutedState // Disable toggle sounds when muted
+      toggleSoundsEnabled: true
     });
   }, []);
 
   const playToggleSound = useCallback(() => {
-    // Don't play toggle sound if muted or if it's a mute toggle action
-    if (!toggleSoundRef.current || !useAudioStore.getState().toggleSoundsEnabled || useAudioStore.getState().isMuted) return;
-    toggleSoundRef.current.play();
+    if (!audioGroupsRef.current?.ui.sound || 
+        !useAudioStore.getState().toggleSoundsEnabled || 
+        useAudioStore.getState().isMuted) return;
+
+    // Temporarily reduce BGM volume for UI sound
+    const bgm = audioGroupsRef.current.bgm;
+    const ui = audioGroupsRef.current.ui;
+    
+    bgm.sound.fade(bgm.sound.volume(), bgm.baseVolume * 0.3, 100);
+    ui.sound.volume(ui.baseVolume);
+    ui.sound.play();
+    
+    // Restore BGM volume after UI sound
+    setTimeout(() => {
+      bgm.sound.fade(bgm.sound.volume(), bgm.baseVolume, 500);
+    }, 200);
   }, []);
 
   const playWaypointSound = useCallback((position: { x: number; y: number; z: number }) => {
-    if (!waypointSoundRef.current || !useAudioStore.getState().waypointSoundsEnabled) return;
+    if (!audioGroupsRef.current?.waypoints.sound || 
+        !useAudioStore.getState().waypointSoundsEnabled) return;
     
-    waypointSoundRef.current.pos(position.x, position.y, position.z);
-    waypointSoundRef.current.play();
+    const waypoints = audioGroupsRef.current.waypoints;
+    const bgm = audioGroupsRef.current.bgm;
+    
+    // Duck BGM volume for waypoint sound
+    bgm.sound.fade(bgm.sound.volume(), bgm.baseVolume * 0.4, 200);
+    
+    waypoints.sound.pos(position.x, position.y, position.z);
+    waypoints.sound.volume(waypoints.baseVolume);
+    waypoints.sound.play();
+    
+    // Restore BGM volume after waypoint sound
+    setTimeout(() => {
+      bgm.sound.fade(bgm.sound.volume(), bgm.baseVolume, 600);
+    }, 400);
   }, []);
 
   return {
