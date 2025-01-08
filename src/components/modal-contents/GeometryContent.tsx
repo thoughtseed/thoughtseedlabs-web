@@ -14,32 +14,32 @@ const GeometryCard = ({ title, description, icon, color }) => (
 const GeometryContent = ({ type }) => {
   const geometries = {
     foundation: {
-      title: 'Foundation of Consciousness',
-      description: 'The tetrahedron embodies our foundational technical architecture - four interconnected vertices representing perception, processing, response, and integration. This geometric principle guides our implementation of consciousness-responsive systems.',
+      title: 'Core Architecture',
+      description: 'The tetrahedron represents our foundational system design - four interconnected elements of input, processing, response, and adaptation working in perfect harmony to create naturally responsive solutions.',
       icon: '🔺',
       color: 'from-red-500 to-orange-500'
     },
     stability: {
-      title: 'Stability of Mind',
-      description: 'The cube represents our six-factor stability framework: data processing, neural mapping, quantum computation, consciousness integration, biofeedback analysis, and system optimization. Each face contributes to a robust, scalable consciousness platform.',
+      title: 'System Stability',
+      description: 'The cube embodies our six-factor reliability framework: data integrity, process efficiency, resource optimization, error handling, performance monitoring, and continuous improvement. Each aspect ensures robust, dependable operation.',
       icon: '⬛',
       color: 'from-purple-500 to-indigo-500'
     },
     balance: {
-      title: 'Balance of Thought',
-      description: 'The octahedron illustrates our balanced technical approach: input/output, hardware/software, data/intuition, and theory/application. This symmetrical structure ensures comprehensive system integration across all operational domains.',
+      title: 'Flow Balance',
+      description: 'The octahedron reflects our balanced approach to system design: combining efficiency with usability, automation with control, innovation with reliability, and complexity with simplicity. This harmony creates naturally flowing experiences.',
       icon: '💠',
       color: 'from-blue-500 to-cyan-500'
     },
     harmony: {
-      title: 'Harmony of Being',
-      description: 'The dodecahedron symbolizes our twelve-point consciousness integration protocol: data collection, neural processing, quantum computation, pattern recognition, feedback analysis, system optimization, consciousness mapping, interface design, performance monitoring, security implementation, scalability planning, and continuous iteration.',
+      title: 'System Harmony',
+      description: 'The dodecahedron represents our twelve principles of seamless integration: understanding, adaptation, enhancement, optimization, reliability, security, scalability, efficiency, usability, maintainability, extensibility, and evolution.',
       icon: '🔮',
       color: 'from-green-500 to-emerald-500'
     },
     potential: {
-      title: 'Infinite Potential',
-      description: 'The icosahedron represents our expansive technical capabilities across twenty distinct domains, from quantum computing to neural networks, from consciousness mapping to system optimization. Each face opens new possibilities in consciousness-technology integration.',
+      title: 'Growth Potential',
+      description: 'The icosahedron symbolizes the expansive possibilities in system evolution. Each face represents a dimension of advancement, from enhanced automation to deeper understanding, creating solutions that grow naturally with use.',
       icon: '✨',
       color: 'from-pink-500 to-rose-500'
     }
@@ -48,7 +48,7 @@ const GeometryContent = ({ type }) => {
   const geometry = geometries[type] || geometries.foundation;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       {/* Main Geometry Card */}
       <GeometryCard {...geometry} />
 
@@ -81,10 +81,10 @@ const GeometryContent = ({ type }) => {
         <h3 className="mb-3 sm:mb-4 text-xl font-bold text-white">Technical Applications</h3>
         <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
           {[
-            'Data Structure Optimization',
-            'Neural Network Architecture',
-            'Quantum State Mapping',
-            'System Integration Patterns'
+            'Pattern Recognition',
+            'Adaptive Systems',
+            'Natural Interfaces',
+            'Seamless Integration'
           ].map((app) => (
             <div key={app} className="flex items-center space-x-2 text-white/80">
               <span className="text-purple-400">•</span>

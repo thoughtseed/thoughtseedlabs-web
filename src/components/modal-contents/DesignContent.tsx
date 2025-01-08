@@ -33,63 +33,63 @@ const InteractionPattern = ({ title, description, icon }) => (
 const DesignContent = () => {
   const designPrinciples = [
     {
-      title: 'Neural Response Design',
-      description: 'Interface patterns optimized through neural feedback and consciousness metrics.',
+      title: 'Intuitive Flow',
+      description: 'Interfaces that feel natural and effortless, adapting to how people naturally work and think.',
       metrics: [
-        { value: '98%', label: 'User Engagement' },
+        { value: '98%', label: 'Task Completion' },
         { value: '0.1s', label: 'Response Time' }
       ]
     },
     {
-      title: 'Biofeedback Integration',
-      description: 'Real-time adaptation based on user\'s physiological and consciousness states.',
+      title: 'Smart Adaptation',
+      description: 'Real-time adjustments based on usage patterns and environmental context.',
       metrics: [
         { value: '95%', label: 'Accuracy Rate' },
         { value: '50ms', label: 'Adaptation Speed' }
       ]
     },
     {
-      title: 'Consciousness Mapping',
-      description: 'Dynamic interfaces that evolve with user\'s consciousness patterns.',
+      title: 'Usage Patterns',
+      description: 'Dynamic interfaces that evolve based on how they\'re actually used.',
       metrics: [
-        { value: '1000+', label: 'Pattern States' },
-        { value: '99%', label: 'Pattern Match' }
+        { value: '1000+', label: 'Flow States' },
+        { value: '99%', label: 'User Satisfaction' }
       ]
     }
   ];
 
   const interactionPatterns = [
     {
-      title: 'Thought-Responsive Elements',
-      description: 'Interface elements that adapt to user\'s thought patterns and focus states',
-      icon: '🧠'
+      title: 'Smart Elements',
+      description: 'Interface elements that understand and adapt to natural work patterns',
+      icon: '💡'
     },
     {
-      title: 'Neural Flow Navigation',
-      description: 'Intuitive navigation guided by neural response patterns',
+      title: 'Natural Navigation',
+      description: 'Movement and flow that feels completely intuitive',
       icon: '🔄'
     },
     {
-      title: 'Consciousness Widgets',
-      description: 'Interactive components that respond to consciousness levels',
+      title: 'Adaptive Components',
+      description: 'Interactive elements that adjust to provide what\'s needed, when needed',
       icon: '✨'
     },
     {
-      title: 'Adaptive Layouts',
-      description: 'Dynamic layouts that optimize based on cognitive load',
+      title: 'Fluid Layouts',
+      description: 'Spaces that naturally organize around how they\'re being used',
       icon: '📱'
     }
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       {/* Header Section */}
       <div className="rounded-xl border border-white/10 bg-gradient-to-br from-amber-500/10 to-orange-500/10 p-4 sm:p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Interface Design</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Natural Design</h2>
         <p className="text-white/90 leading-relaxed">
-          Precision-engineered interfaces that optimize human-technology interaction. 
-          Our design methodology incorporates biofeedback data, neural response patterns, 
-          and consciousness metrics to create intuitive, transformative experiences.
+          Creating interfaces that feel like natural extensions of human intention. 
+          Our design approach focuses on understanding how people naturally work and interact, 
+          resulting in experiences that feel completely intuitive.
         </p>
       </div>
 
@@ -117,20 +117,20 @@ const DesignContent = () => {
           <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/50 via-orange-500/50 to-transparent" />
           <div className="space-y-6 pl-12">
             <div>
-              <h4 className="text-white font-medium">1. Neural Pattern Analysis</h4>
-              <p className="text-sm text-white/60 mt-1">Study of user consciousness patterns and interaction behaviors</p>
+              <h4 className="text-white font-medium">1. Flow Analysis</h4>
+              <p className="text-sm text-white/60 mt-1">Understanding natural work patterns and interaction preferences</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">2. Interface Prototyping</h4>
-              <p className="text-sm text-white/60 mt-1">Creation of consciousness-responsive interface elements</p>
+              <h4 className="text-white font-medium">2. Natural Prototyping</h4>
+              <p className="text-sm text-white/60 mt-1">Creating interfaces that feel like they've always been there</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">3. Biofeedback Testing</h4>
-              <p className="text-sm text-white/60 mt-1">Real-world testing with neural response monitoring</p>
+              <h4 className="text-white font-medium">3. Usage Testing</h4>
+              <p className="text-sm text-white/60 mt-1">Real-world testing focused on natural interaction patterns</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">4. Pattern Optimization</h4>
-              <p className="text-sm text-white/60 mt-1">Refinement based on consciousness metrics and user data</p>
+              <h4 className="text-white font-medium">4. Flow Refinement</h4>
+              <p className="text-sm text-white/60 mt-1">Continuous improvement based on actual usage patterns</p>
             </div>
           </div>
         </div>

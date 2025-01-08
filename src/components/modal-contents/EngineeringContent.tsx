@@ -35,68 +35,68 @@ const SystemLayer = ({ name, components }) => (
 const EngineeringContent = () => {
   const architectureComponents = [
     {
-      title: 'IoT Sensor Network',
-      description: 'Distributed sensor array for real-time consciousness data collection and processing.',
+      title: 'Adaptive Sensors',
+      description: 'Smart sensor networks that automatically adjust to usage patterns and environmental conditions.',
       icon: '📡',
       specs: [
-        { label: 'Sampling Rate', value: '1000Hz' },
-        { label: 'Latency', value: '<5ms' },
+        { label: 'Response Time', value: '<5ms' },
         { label: 'Accuracy', value: '99.99%' },
+        { label: 'Coverage', value: '100%' },
         { label: 'Power Usage', value: '0.1W' }
       ]
     },
     {
-      title: 'Neural Processing',
-      description: 'Advanced neural networks optimized for consciousness pattern recognition.',
+      title: 'Learning Systems',
+      description: 'Self-improving algorithms that evolve with usage to provide more natural interactions.',
       icon: '🧠',
       specs: [
-        { label: 'Model Size', value: '1.2B' },
-        { label: 'Training Time', value: '72h' },
-        { label: 'Inference Speed', value: '0.5ms' },
-        { label: 'Memory Usage', value: '16GB' }
+        { label: 'Patterns', value: '1.2M' },
+        { label: 'Adaptation', value: '24/7' },
+        { label: 'Response', value: '0.5ms' },
+        { label: 'Accuracy', value: '99.9%' }
       ]
     },
     {
-      title: 'Quantum Systems',
-      description: 'Quantum algorithms for parallel consciousness state processing.',
-      icon: '⚛️',
+      title: 'Flow Processing',
+      description: 'Advanced processing systems that handle multiple interaction streams seamlessly.',
+      icon: '⚡',
       specs: [
-        { label: 'Qubits', value: '1024' },
-        { label: 'Coherence Time', value: '100μs' },
-        { label: 'Gate Fidelity', value: '99.9%' },
-        { label: 'Error Rate', value: '0.1%' }
+        { label: 'Streams', value: '1024' },
+        { label: 'Latency', value: '100μs' },
+        { label: 'Reliability', value: '99.9%' },
+        { label: 'Throughput', value: '10GB/s' }
       ]
     }
   ];
 
   const systemLayers = [
     {
-      name: 'Data Collection Layer',
-      components: ['Biometric Sensors', 'Neural Interfaces', 'Quantum Detectors', 'Environmental Monitors']
+      name: 'Input Layer',
+      components: ['Smart Sensors', 'Flow Detectors', 'Pattern Monitors', 'Adaptive Inputs']
     },
     {
       name: 'Processing Layer',
-      components: ['Neural Networks', 'Quantum Processors', 'Pattern Recognition', 'Data Fusion']
+      components: ['Learning Systems', 'Flow Analysis', 'Pattern Recognition', 'Adaptive Logic']
     },
     {
       name: 'Integration Layer',
-      components: ['API Gateway', 'Event Bus', 'State Management', 'Security Protocol']
+      components: ['Seamless API', 'Event Flow', 'State Harmony', 'Natural Security']
     },
     {
-      name: 'Application Layer',
-      components: ['User Interface', 'Analytics Dashboard', 'Control Systems', 'Monitoring Tools']
+      name: 'Interface Layer',
+      components: ['Natural UI', 'Flow Insights', 'Adaptive Controls', 'Smart Monitoring']
     }
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       {/* Header Section */}
       <div className="rounded-xl border border-white/10 bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 p-4 sm:p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Technical Architecture</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">System Architecture</h2>
         <p className="text-white/90 leading-relaxed">
-          Implementing robust technical architectures that bridge consciousness and computation. 
-          Our engineering approach integrates IoT sensors, neural networks, and quantum 
-          algorithms to create measurable consciousness-technology interfaces.
+          Creating systems that adapt and respond naturally to user needs. Our engineering approach 
+          combines smart sensors, learning algorithms, and seamless integration to deliver 
+          experiences that feel completely intuitive.
         </p>
       </div>
 

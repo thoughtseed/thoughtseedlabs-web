@@ -28,60 +28,60 @@ const TechnologyBadge = ({ name }) => (
 const ServicesContent = () => {
   const services = [
     {
-      title: 'Consciousness Engineering',
-      description: 'Advanced integration of consciousness and technology through sophisticated engineering solutions.',
-      icon: '🧠',
+      title: 'Flow Optimization',
+      description: 'Systems that naturally adapt to usage patterns, enhancing efficiency without disrupting established workflows.',
+      icon: '⚡',
       features: [
-        'Neural Network Architecture',
-        'Consciousness Mapping',
-        'Biofeedback Integration',
-        'Pattern Recognition Systems'
+        'Adaptive Learning',
+        'Pattern Recognition',
+        'Process Enhancement',
+        'Seamless Integration'
       ]
     },
     {
-      title: 'AI Integration',
-      description: 'Cutting-edge AI solutions tailored for consciousness-aware applications and systems.',
+      title: 'Smart Environments',
+      description: 'Spaces that understand and respond to needs, creating natural interactions between users and technology.',
+      icon: '🔧',
+      features: [
+        'Intuitive Controls',
+        'Ambient Intelligence',
+        'Natural Interactions',
+        'Environmental Harmony'
+      ]
+    },
+    {
+      title: 'Intelligent Assistance',
+      description: 'Solutions that anticipate needs and provide support exactly when needed, becoming an natural extension of human capability.',
       icon: '🤖',
       features: [
-        'Deep Learning Models',
-        'Natural Language Processing',
-        'Behavioral Analysis',
-        'Adaptive AI Systems'
-      ]
-    },
-    {
-      title: 'Smart Technology',
-      description: 'Innovative smart systems that bridge consciousness with practical applications.',
-      icon: '💡',
-      features: [
-        'IoT Device Integration',
-        'Real-time Processing',
-        'Smart Environment Control',
-        'Automated Optimization'
+        'Contextual Awareness',
+        'Predictive Support',
+        'Adaptive Learning',
+        'Seamless Integration'
       ]
     }
   ];
 
   const technologies = [
-    'Quantum Computing',
-    'Neural Networks',
-    'Blockchain',
-    'IoT',
-    'Edge Computing',
-    'Cloud Infrastructure',
-    'Machine Learning',
-    'Data Analytics'
+    'React/React Native',
+    'Python/FastAPI',
+    'Firebase/Supabase',
+    'IoT/Tuya APIs',
+    'OpenAI Integration',
+    'Flutter/Vue.js',
+    'Go/Redis/Postgres',
+    'Cloud Services'
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       {/* Header Section */}
       <div className="rounded-xl border border-white/10 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-4 sm:p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Technical Solutions</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Natural Enhancement</h2>
         <p className="text-white/90 leading-relaxed">
-          Specialized technical solutions spanning consciousness engineering, AI integration, 
-          and smart technology development. Our implementations bridge the gap between 
-          advanced technology and consciousness enhancement.
+          We create solutions that feel like natural extensions of human capability. Our systems 
+          work invisibly in the background, learning and adapting to provide support exactly 
+          when needed, without drawing attention to themselves.
         </p>
       </div>
 
@@ -109,20 +109,20 @@ const ServicesContent = () => {
           <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-blue-500/50 to-transparent" />
           <div className="space-y-6 pl-12">
             <div>
-              <h4 className="text-white font-medium">1. Technical Assessment</h4>
-              <p className="text-sm text-white/60 mt-1">Comprehensive analysis of requirements and technical feasibility</p>
+              <h4 className="text-white font-medium">1. Understanding Patterns</h4>
+              <p className="text-sm text-white/60 mt-1">Observing natural workflows and identifying enhancement opportunities</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">2. Solution Architecture</h4>
-              <p className="text-sm text-white/60 mt-1">Custom design of integrated consciousness-technology systems</p>
+              <h4 className="text-white font-medium">2. Invisible Design</h4>
+              <p className="text-sm text-white/60 mt-1">Creating systems that enhance without interrupting</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">3. Implementation</h4>
-              <p className="text-sm text-white/60 mt-1">Agile development and deployment of solutions</p>
+              <h4 className="text-white font-medium">3. Natural Integration</h4>
+              <p className="text-sm text-white/60 mt-1">Implementing solutions that feel like they've always been there</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">4. Optimization</h4>
-              <p className="text-sm text-white/60 mt-1">Continuous improvement based on performance metrics</p>
+              <h4 className="text-white font-medium">4. Continuous Evolution</h4>
+              <p className="text-sm text-white/60 mt-1">Adapting and improving based on real-world interactions</p>
             </div>
           </div>
         </div>

@@ -15,38 +15,38 @@ const MethodologyCard = ({ title, description, icon }) => (
 const ApproachContent = () => {
   const methodologies = [
     {
-      title: 'Neural Networks Integration',
-      description: 'Advanced neural architectures combined with biofeedback systems for precise consciousness mapping and response optimization.',
-      icon: '🧠'
+      title: 'Adaptive Systems',
+      description: 'Self-learning solutions that evolve with usage patterns, improving efficiency and user experience over time.',
+      icon: '🔄'
     },
     {
-      title: 'Biofeedback Systems',
-      description: 'Real-time physiological data processing enabling dynamic consciousness-technology interaction and adaptation.',
-      icon: '📊'
+      title: 'Seamless Integration',
+      description: 'Unified systems that work invisibly in the background, enhancing rather than interrupting natural workflows.',
+      icon: '⚡'
     },
     {
-      title: 'Transformation Metrics',
-      description: 'Quantifiable measurements of consciousness evolution through advanced data analytics and pattern recognition.',
+      title: 'Measured Impact',
+      description: 'Real-world performance metrics that demonstrate tangible improvements in efficiency, usability, and user satisfaction.',
       icon: '📈'
     }
   ];
 
   const technicalHighlights = [
-    'AI-Driven Pattern Recognition',
-    'Quantum Computing Integration',
-    'Consciousness Mapping Algorithms',
-    'Real-time Data Processing'
+    'Intuitive Design',
+    'Smart Automation',
+    'Adaptive Learning',
+    'Seamless Flow'
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       {/* Main Description */}
       <div className="rounded-xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-4 sm:p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Pioneering Integration</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Invisible Innovation</h2>
         <p className="text-white/90 leading-relaxed">
-          Our approach combines cutting-edge AI technology with advanced consciousness studies, 
-          delivering measurable transformation in human potential through precise methodologies 
-          and systematic implementation.
+          We create systems that enhance natural workflows without drawing attention to themselves. 
+          Our solutions work behind the scenes, learning and adapting to provide seamless experiences 
+          that feel completely natural to users.
         </p>
       </div>
 
@@ -77,22 +77,22 @@ const ApproachContent = () => {
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-white">1</div>
             <div className="flex-grow">
-              <h4 className="text-white font-medium">Analysis & Mapping</h4>
-              <p className="text-sm text-white/60">Initial consciousness pattern assessment and system architecture design</p>
+              <h4 className="text-white font-medium">Understanding Flow</h4>
+              <p className="text-sm text-white/60">Analyzing natural patterns and identifying enhancement opportunities</p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-white">2</div>
             <div className="flex-grow">
-              <h4 className="text-white font-medium">Integration & Development</h4>
-              <p className="text-sm text-white/60">Neural network training and biofeedback system implementation</p>
+              <h4 className="text-white font-medium">Seamless Implementation</h4>
+              <p className="text-sm text-white/60">Building solutions that integrate naturally with existing workflows</p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-white">3</div>
             <div className="flex-grow">
-              <h4 className="text-white font-medium">Optimization & Scaling</h4>
-              <p className="text-sm text-white/60">Performance tuning and system expansion based on collected metrics</p>
+              <h4 className="text-white font-medium">Continuous Refinement</h4>
+              <p className="text-sm text-white/60">Iterative improvements based on real usage patterns and feedback</p>
             </div>
           </div>
         </div>

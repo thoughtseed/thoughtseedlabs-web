@@ -15,6 +15,7 @@
     "@react-three/fiber": "^8.17.10",
     "@types/howler": "^2.2.12",
     "@types/three": "^0.170.0",
+    "@vercel/edge-config": "^1.4.0",
     "@vercel/speed-insights": "^1.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",

@@ -225,7 +225,7 @@ function App() {
 
       <div ref={thoughtseedRef} className="thoughtseed-title">
         <div className="main-title">THOUGHTSEED</div>
-        <div className="tagline">Inoculating conscious intentions</div>
+        <div className="tagline">Enhancing natural interactions</div>
       </div>
       
       <div ref={tutorialRef} className="tutorial-wrapper">

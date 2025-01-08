@@ -36,8 +36,8 @@ const TechniqueCard = ({ title, description, icon }) => (
 const ArtContent = () => {
   const artProjects = [
     {
-      title: 'Neural Pattern Visualization',
-      description: 'Real-time visualization of consciousness patterns through advanced neural networks.',
+      title: 'Flow Visualization',
+      description: 'Real-time visualization of natural movement and interaction patterns.',
       preview: '🌊',
       specs: [
         { value: '1M+', label: 'Data Points' },
@@ -45,17 +45,17 @@ const ArtContent = () => {
       ]
     },
     {
-      title: 'Quantum Art Generation',
-      description: 'Artistic expressions derived from quantum consciousness computations.',
+      title: 'Adaptive Art',
+      description: 'Dynamic artworks that evolve based on interaction patterns.',
       preview: '✨',
       specs: [
-        { value: '1024', label: 'Quantum States' },
+        { value: '1024', label: 'States' },
         { value: '4K', label: 'Resolution' }
       ]
     },
     {
-      title: 'Consciousness Landscapes',
-      description: 'Dynamic 3D landscapes generated from collective consciousness data.',
+      title: 'Living Landscapes',
+      description: 'Responsive 3D environments that adapt to natural movement.',
       preview: '🏔️',
       specs: [
         { value: 'Real-time', label: 'Generation' },
@@ -66,36 +66,36 @@ const ArtContent = () => {
 
   const techniques = [
     {
-      title: 'Neural Style Transfer',
-      description: 'Applying consciousness patterns to transform visual aesthetics',
+      title: 'Adaptive Style',
+      description: 'Visual elements that naturally evolve with interaction',
       icon: '🎨'
     },
     {
-      title: 'Quantum Pattern Synthesis',
-      description: 'Generating art from quantum consciousness states',
+      title: 'Pattern Synthesis',
+      description: 'Creating art from natural movement and flow',
       icon: '⚛️'
     },
     {
-      title: 'Biofeedback Visualization',
-      description: 'Converting neural responses into visual elements',
+      title: 'Flow Visualization',
+      description: 'Converting natural patterns into visual elements',
       icon: '📊'
     },
     {
-      title: 'Algorithmic Composition',
-      description: 'Mathematical beauty derived from consciousness data',
+      title: 'Natural Composition',
+      description: 'Mathematical beauty found in natural patterns',
       icon: '🔢'
     }
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       {/* Header Section */}
       <div className="rounded-xl border border-white/10 bg-gradient-to-br from-green-500/10 to-emerald-500/10 p-4 sm:p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Computational Creativity</h2>
+        <h2 className="mb-4 text-xl font-bold text-white">Natural Creativity</h2>
         <p className="text-white/90 leading-relaxed">
-          Merging computational creativity with consciousness exploration. Through 
-          algorithmic art generation and neural network visualization, we create 
-          immersive experiences that reveal the patterns of consciousness.
+          Creating art that responds and adapts to natural patterns of interaction. 
+          Through dynamic visualization and generative techniques, we craft 
+          experiences that feel alive and responsive.
         </p>
       </div>
 
@@ -123,20 +123,20 @@ const ArtContent = () => {
           <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-green-500/50 via-emerald-500/50 to-transparent" />
           <div className="space-y-6 pl-12">
             <div>
-              <h4 className="text-white font-medium">1. Data Collection</h4>
-              <p className="text-sm text-white/60 mt-1">Gathering consciousness patterns and neural responses</p>
+              <h4 className="text-white font-medium">1. Pattern Discovery</h4>
+              <p className="text-sm text-white/60 mt-1">Understanding natural rhythms and flows</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">2. Pattern Analysis</h4>
-              <p className="text-sm text-white/60 mt-1">Processing data through neural networks and quantum algorithms</p>
+              <h4 className="text-white font-medium">2. Flow Analysis</h4>
+              <p className="text-sm text-white/60 mt-1">Identifying natural patterns and movements</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">3. Visual Synthesis</h4>
-              <p className="text-sm text-white/60 mt-1">Converting patterns into visual and interactive elements</p>
+              <h4 className="text-white font-medium">3. Visual Creation</h4>
+              <p className="text-sm text-white/60 mt-1">Transforming patterns into living artworks</p>
             </div>
             <div>
-              <h4 className="text-white font-medium">4. Experience Integration</h4>
-              <p className="text-sm text-white/60 mt-1">Creating immersive, consciousness-responsive artworks</p>
+              <h4 className="text-white font-medium">4. Natural Integration</h4>
+              <p className="text-sm text-white/60 mt-1">Crafting responsive, evolving experiences</p>
             </div>
           </div>
         </div>

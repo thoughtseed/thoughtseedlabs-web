@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStore } from '../store/useStore'
 import { useAudio } from '../hooks/useAudio'
 import Modal from './Modal.tsx'
 import { useAudioStore } from '../hooks/useAudio'
+import { useEdgeConfig } from '../hooks/useEdgeConfig'
 
 export const AudioModal = () => {
   const { showAudioModal, setShowAudioModal } = useStore()
   const { toggleMute } = useAudio()
+  const { config, loading } = useEdgeConfig()
+
+  useEffect(() => {
+    if (!loading && config?.audio) {
+      // Apply default audio settings from Edge Config
+      useAudioStore.setState({
+        waypointSoundsEnabled: config.audio.autoPlay,
+        toggleSoundsEnabled: config.audio.autoPlay,
+        isMuted: !config.audio.autoPlay
+      })
+    }
+  }, [config, loading])
 
   const handleContinue = (withSound: boolean) => {
     if (!withSound) {
@@ -42,8 +55,9 @@ export const AudioModal = () => {
     >
       <div className="prose prose-invert max-w-none px-4 sm:px-6">
         <p className="text-base sm:text-lg leading-relaxed mb-6 text-center">
-          This is an immersive audio-visual journey through a winter wonderland. 
-          Would you like to continue with sound?
+          Welcome to an immersive experience where visuals and sound work in harmony 
+          to create a natural flow of interaction. Would you like to enhance your 
+          journey with sound?
         </p>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <button
@@ -68,7 +82,7 @@ export const AudioModal = () => {
           </button>
         </div>
         <p className="text-xs sm:text-sm text-white/60 text-center mt-8 sm:mt-6">
-          You can toggle sound at any time using the audio controls
+          Sound preferences can be adjusted naturally at any time through the audio controls
         </p>
       </div>
     </Modal>
