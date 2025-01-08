@@ -45,9 +45,9 @@ const TeamMember = ({ name, role, image }: { name: string; role: string; image?:
               </text>
             </svg>
           </div>
-          <h3 className="text-lg font-bold text-white">{name}</h3>
+          <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{name}</h3>
         </div>
-        <p className="text-sm leading-relaxed text-white/80">{role}</p>
+        <p className="text-sm leading-relaxed text-neutral-700 dark:text-white/80">{role}</p>
       </div>
     </div>
   );
@@ -58,8 +58,8 @@ const AboutUsContent = () => {
     <div className="space-y-8 pb-8">
       {/* Vision Section */}
       <div className="rounded-lg bg-white/5 p-6 backdrop-blur-sm">
-        <h3 className="mb-4 text-xl font-bold text-white">Our Vision</h3>
-        <p className="text-white/80">
+        <h3 className="mb-4 text-xl font-bold text-neutral-900 dark:text-white">Our Vision</h3>
+        <p className="text-neutral-700 dark:text-white/80">
           We are innovators and problem solvers, specializing in creating systems that work 
           naturally with human needs. Our expertise spans adaptive technology, smart systems, 
           and intuitive solutions that enhance rather than interrupt natural workflows.
@@ -68,7 +68,7 @@ const AboutUsContent = () => {
 
       {/* Team Section */}
       <div>
-        <h3 className="mb-4 text-xl font-bold text-white">Our Team</h3>
+        <h3 className="mb-4 text-xl font-bold text-neutral-900 dark:text-white">Our Team</h3>
         <div className="grid gap-4 md:grid-cols-2">
           <TeamMember
             name="Mohankumar V (@7Psychon)"
@@ -85,8 +85,8 @@ const AboutUsContent = () => {
       <div className="grid gap-4 md:grid-cols-3">
         {['Adaptive Systems', 'Natural Integration', 'Smart Solutions'].map((area) => (
           <div key={area} className="rounded-lg bg-white/5 p-4 text-center backdrop-blur-sm">
-            <div className="mb-2 text-white/60">Expertise in</div>
-            <div className="text-lg font-semibold text-white">{area}</div>
+            <div className="mb-2 text-neutral-600 dark:text-white/60">Expertise in</div>
+            <div className="text-lg font-semibold text-neutral-900 dark:text-white">{area}</div>
           </div>
         ))}
       </div>
