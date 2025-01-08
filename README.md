@@ -1,152 +1,125 @@
-# Dynamic Terrain Deformation - Interactive 3D Experience
+<img src="public/images/logo-dark-nobg.png" alt="ThoughtSeed Logo" width="200"/>
 
-## Overview
-This project represents a cutting-edge interactive 3D web experience that combines immersive storytelling with dynamic terrain manipulation. Built using modern web technologies, it creates a unique journey through a carefully crafted virtual environment where users explore waypoints that reveal content through elegant modal windows.
+# ThoughtSeed Digital Consciousness Expedition
 
-## Technical Architecture
+> *Inoculating conscious intentions through digital exploration*
 
-### Core Technologies
-- React with TypeScript/JavaScript for component architecture
-- Three.js/React Three Fiber for 3D rendering
-- Tailwind CSS for responsive styling
-- Vite as the build tool
-- Custom state management using Zustand
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
+![Status](https://img.shields.io/badge/status-active-success.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-### Key Features
+---
 
-#### Immersive 3D Environment
-- Dynamic terrain deformation system
-- Infinite snow ground generation
-- Atmospheric fog effects
-- High-quality textures for snow and sand dunes
-- Custom 3D character model (explorer)
-- Optimized performance with FPS limiting
+## 🌟 Overview
 
-#### Interactive Elements
-- 14 unique waypoints with custom 3D geometric representations
-- Proximity-based activation system (10-unit radius)
-- Dynamic scaling and opacity transitions
-- Interactive modal windows for content display
-- Directional hint system with golden ratio-based positioning
-- Progress tracking with visited waypoint memory
-- Timeline integration for sequential navigation
-- Toggle controls for various features
-- Custom point lights with color-coded waypoint identification
+ThoughtSeed's Digital Consciousness Expedition is an innovative 3D web experience that manifests abstract realms of consciousness through interactive digital art. This groundbreaking project combines terrain deformation, sacred geometry, and spatial audio to create a unique journey through a digital mindscape.
 
-#### Audio Experience
-- Multiple ambient audio tracks
-- Custom audio control system
-- Sound effects for interactions
-- Background music integration
+### ✨ Core Features
 
-#### Visual Design
-- Custom SubjectivitySerif font family
-- Responsive UI components
-- Gradient hover effects
-- Dark/light theme support
-- Brand-consistent visual elements
+- **Dynamic Terrain Deformation**: Real-time response to user presence with physics-based wave propagation
+- **Sacred Geometry Navigation**: Three-tiered waypoint system following Fibonacci patterns
+- **Spatial Audio Landscape**: State-based sound evolution with consciousness frequency alignment
+- **Achievement System**: Track and visualize your journey through the consciousness expedition
 
-## Navigation Structure
+## 🚀 Quick Start
 
-The experience is organized in a Fibonacci spiral pattern with three distinct layers of waypoints, creating an intuitive and meaningful progression through the content:
+```bash
+# Clone the repository
+git clone https://github.com/thoughtseed/consciousness-expedition.git
 
-### Primary Navigation (Inner Circle)
-1. **Our Approach** - Core methodology and philosophy
-2. **Services** - Available offerings and capabilities
-3. **Projects** - Showcase of work and achievements
-4. **About Us** - Team and company information
-5. **Contact Us** - Communication channels
+# Install dependencies
+pnpm install
 
-### Secondary Navigation (Outer Circle)
-6. **Science** - Scientific principles and research
-7. **Engineering** - Technical capabilities
-8. **Design** - Creative process and aesthetics
-9. **Art** - Artistic vision and expression
+# Start development server
+pnpm dev
 
-### Hidden Easter Egg Waypoints
-These special waypoints, themed around Platonic solids, reveal deeper content:
-10. **Foundation of Consciousness**
-11. **Stability of Mind**
-12. **Balance of Thought**
-13. **Harmony of Being**
-14. **Infinite Potential**
+# Build for production
+pnpm build
+```
 
-## User Journey
+## 🛠 Technology Stack
 
-The experience guides users through these waypoints using an innovative spatial arrangement. Each waypoint features:
+- **Core**: WebGL, Three.js, React with TypeScript
+- **State Management**: Custom consciousness state orchestration
+- **Audio**: Web Audio API with spatial implementation
+- **Build System**: Vite
+- **Package Manager**: pnpm
 
-1. **Navigation System**
-   - Intuitive directional hints
-   - Progress counter
-   - Interactive waypoint markers
-   - Smooth camera transitions
+## 🎯 Core Systems
 
-2. **Content Presentation**
-   - Modal windows for detailed content
-   - Timeline-based progression
-   - Thoughtfully integrated brand elements
-   - Responsive layout adaptations
+### 1. Terrain Deformation
+```typescript
+interface TerrainSystem {
+  resolution: 128,
+  amplitude: 2.5,
+  persistence: 0.5,
+  scale: 100
+}
+```
 
-3. **Atmospheric Elements**
-   - Dynamic fog effects
-   - Terrain deformation feedback
-   - Ambient audio layers
-   - Environmental sound effects
+### 2. Consciousness Navigation
+- Inner Sanctum (Waypoints 1-5)
+- Expansion Zone (Waypoints 6-9)
+- Hidden Dimensions (Waypoints 10-14)
 
-## Visual Representation
+### 3. Audio Landscape
+```typescript
+const audioSystem = {
+  masterVolume: 1.0,
+  meditation: 0.7,
+  insights: 0.8,
+  ambient: 0.5
+};
+```
 
-### Waypoint Markers
-Each waypoint is represented by a unique 3D geometric composition that reflects its content and position in the journey:
+## 🎨 Design Philosophy
 
-- **Animated Geometries**: Custom Three.js meshes with continuous animations (e.g., rotating rings and cones)
-- **Material System**: Custom material implementation with dynamic textures and matcap rendering
-- **Interactive Scaling**: Proximity-based size adjustments for improved visibility
-- **Color Coding**: Unique colors for each waypoint (e.g., #4A90E2 for Our Approach, #50E3C2 for Services)
-- **Lighting**: Individual point lights that create a distinctive glow around each waypoint
-- **Text Labels**: Billboarded text with custom font rendering and outline effects
+### Color System
+```css
+--primary-blue: #4A90E2;    /* Main interactive elements */
+--accent-teal: #50E3C2;     /* Highlights and accents */
+--deep-purple: #6B66FF;     /* Special interactions */
+--consciousness-gold: #FFD700; /* Achievement indicators */
+```
 
-### Animation System
-- GSAP-powered continuous animations
-- Custom rotation patterns for geometric elements
-- Smooth transitions for opacity and scale changes
-- Responsive hover states and click interactions
-- Performance-optimized rendering using ref-based animations
+### Typography
+- Primary: SubjectivitySerif for wisdom and insights
+- Secondary: Inter for navigation and interface
 
-## Performance Optimization
-- Efficient texture loading system
-- Optimized 3D model rendering
-- Progressive asset loading
-- FPS management for consistent performance
-- Audio resource management
+## 🏆 Achievement System
 
-This project demonstrates the potential of modern web technologies to create engaging, interactive experiences that combine storytelling with technical innovation. The careful attention to performance, user experience, and visual design creates a memorable journey through a dynamic 3D environment.
+Track your journey through:
+- Waypoint discoveries
+- Energy field interactions
+- Consciousness level progression
+- Hidden dimension revelations
 
-## Upcoming Features & Enhancements
+## 🔮 Future Vision
 
-### Audio & Achievement System
-- [ ] Extend useStore to track achievement completion states
-- [ ] Create new audio state for 9-waypoint completion
-- [ ] Implement smooth audio crossfade system in AudioModal.tsx
-- [ ] Fix achievement icon rendering in modal component
-- [ ] Add achievement completion sound effects
+- VR/AR Integration
+- Multi-user Experiences
+- Advanced Consciousness Tracking
+- Research Data Visualization
 
-### Waypoint System Improvements
-- [ ] Create secondary progress bar component for hidden waypoints
-- [ ] Implement minimum distance validation (50 units) between main and hidden waypoints
-- [ ] Optimize waypoint placement algorithm in Waypoints.jsx
-- [ ] Add visual indicators to distinguish hidden waypoints
-- [ ] Update useStore to track both main and hidden waypoint progress
+## 📚 Documentation
 
-### Advanced Visual Effects
-- [ ] Import and integrate Spline portal model
-- [ ] Create PortalEffect component with terrain deformation triggers
-- [ ] Implement character glow shader with electric blue effect
-- [ ] Create TextRevealEffect component for thoughtseed text
-- [ ] Implement WaylineGuidance system for visited waypoint navigation
-- [ ] Add portal activation logic tied to completion state
+- [Technical Documentation](brand-docs/tech-doc.md)
+- [Design Specifications](brand-docs/design-specs.md)
+- [Product Requirements](brand-docs/prd.md)
+- [Brand Philosophy](brand-docs/brand-philosophy.md)
 
-### Technical Dependencies
-- Spline SDK for portal model integration
-- Custom shaders for character glow effect
-- Enhanced state management for dual progress tracking
-- Pathfinding system for wayline guidance
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+## 📄 License
+
+© 2024 ThoughtSeed. All rights reserved. See [LICENSE.txt](LICENSE.txt) for details.
+
+---
+
+<div align="center">
+
+**[Experience the Journey](https://thoughtseed.space) • [Documentation](brand-docs/) • [Report Bug](https://github.com/thoughtseed/consciousness-expedition/issues)**
+
+</div>
