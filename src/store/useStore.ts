@@ -46,7 +46,7 @@ export const useStore = create<StoreState>((set) => ({
   setTexture: (texture) => set({ texture }),
   waypointsVisible: false,
   setWaypointsVisible: (visible) => set({ waypointsVisible: visible }),
-  instructionsVisible: true,
+  instructionsVisible: false,
   setInstructionsVisible: (visible) => set({ instructionsVisible: visible }),
   visitedWaypoints: [],
   addVisitedWaypoint: (waypoint) => 

@@ -124,6 +124,14 @@ function App() {
     setShowAchievementIcon
   } = useStore();
   const [showHints, setShowHints] = useState(false);
+
+  // Add 30s delay for initial instructions visibility
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInstructionsVisible(true);
+    }, 30000);
+    return () => clearTimeout(timer);
+  }, [setInstructionsVisible]);
   const [modalContent, setModalContent] = useState(null);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [isMoving, setIsMoving] = useState(false);

@@ -38,6 +38,7 @@ export const AudioModal = () => {
       isOpen={showAudioModal} 
       onClose={() => {}} 
       title="Welcome to the Experience"
+      className="bg-black/40 w-[90%]"
     >
       <div className="prose prose-invert max-w-none">
         <p className="text-lg leading-relaxed mb-6">

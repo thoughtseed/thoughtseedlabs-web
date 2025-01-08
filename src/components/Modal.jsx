@@ -26,6 +26,7 @@ const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
           bg-white/20 dark:bg-neutral-900/20 
           backdrop-blur-md backdrop-saturate-150
           border border-white/20
+          w-full max-w-2xl mx-4 md:mx-auto
           ${className}`}
         onClick={e => e.stopPropagation()}
       >
