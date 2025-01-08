@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStore, getRandomQuote } from '../store/useStore'
-import Modal from './Modal'
+import Modal from './Modal.tsx'
 
 export const AchievementIcon = () => {
   const { 

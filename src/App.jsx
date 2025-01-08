@@ -11,7 +11,7 @@ import WaypointsToggle from "./components/WaypointsToggle";
 import InstructionsToggle from "./components/InstructionsToggle";
 import DirectionalHintToggle from "./components/DirectionalHintToggle";
 import DirectionalHint from "./components/DirectionalHint";
-import Modal from "./components/Modal";
+import Modal from "./components/Modal.tsx";
 import InfiniteSnowGround from "./components/InfiniteSnowGround";
 import { TimelineDemo } from "./components/TimelineDemo";
 import { ProgressCounter } from "./components/ProgressCounter";
@@ -176,14 +176,11 @@ function App() {
   }, [instructionsVisible, isMoving, canShowInstructions]);
 
   const handleWaypointClick = (section) => {
-    const content = SECTION_CONTENT[section];
-    if (content) {
-      // Set texture3.jpeg for platonic solids (Items 10-14)
-      if (['foundation of consciousness', 'stability of mind', 'balance of thought', 'harmony of being', 'infinite potential'].includes(section)) {
-        setTexture('/images/texture3.jpeg');
-      }
-      setModalContent(content);
+    // Set texture3.jpeg for platonic solids (Items 10-14)
+    if (['foundation of consciousness', 'stability of mind', 'balance of thought', 'harmony of being', 'infinite potential'].includes(section)) {
+      setTexture('/images/texture3.jpeg');
     }
+    setModalContent({ section, title: SECTION_CONTENT[section]?.title });
   };
 
   return (
@@ -218,8 +215,9 @@ function App() {
         isOpen={!!modalContent}
         onClose={() => setModalContent(null)}
         title={modalContent?.title}
+        section={modalContent?.section}
       >
-        {modalContent?.content}
+        {modalContent?.section && SECTION_CONTENT[modalContent.section]?.content}
       </Modal>
 
       <AudioModal />

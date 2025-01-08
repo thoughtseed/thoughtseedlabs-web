@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStore } from '../store/useStore'
 import { useAudio } from '../hooks/useAudio'
-import Modal from './Modal'
+import Modal from './Modal.tsx'
 import { useAudioStore } from '../hooks/useAudio'
 
 export const AudioModal = () => {

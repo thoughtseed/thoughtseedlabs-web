@@ -1,11 +1,28 @@
 import { useEffect, useRef } from 'react';
 import React from 'react';
+import { MODAL_CONTENT_MAP } from './modal-contents/index.tsx';
 
-const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
-  const modalRef = useRef();
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  section?: string | null;
+  children?: React.ReactNode;
+  className?: string;
+}
+
+const Modal: React.FC<ModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  title, 
+  section = null, 
+  children, 
+  className = '' 
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
 
@@ -25,11 +42,14 @@ const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
           bg-white/20 dark:bg-neutral-900/20 
           backdrop-blur-md backdrop-saturate-150
           border border-white/20
-          w-full max-w-2xl mx-4 md:mx-auto
+          w-[95%] max-w-[90vw] min-w-[280px]
+          mx-auto
+          max-h-[90vh]
+          transition-all duration-300
           ${className}`}
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-white/10">
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10">
           <h2 className="text-2xl font-bold text-white">{title}</h2>
           <button 
             className="w-10 h-10 flex items-center justify-center
@@ -43,10 +63,13 @@ const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
             ×
           </button>
         </div>
-        <div className="p-6">
-          <div className="modal-body overflow-y-auto text-white">
+        <div className="p-3 sm:p-4 md:p-6">
+          <div className="modal-body overflow-y-auto max-h-[calc(90vh-8rem)] text-white">
             <div className="prose prose-invert max-w-none">
-              {children}
+              {(section && MODAL_CONTENT_MAP[section] ? 
+                React.createElement(MODAL_CONTENT_MAP[section]) : 
+                children || <div className="text-white">Content not available</div>
+              )}
             </div>
           </div>
         </div>
