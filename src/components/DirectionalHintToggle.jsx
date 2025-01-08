@@ -12,12 +12,12 @@ const DirectionalHintToggle = ({ onToggle, isActive }) => {
         onToggle(!isActive);
       }}
       className={cn(
-        "text-black/80",
+        "text-black/80 p-2 md:p-3",
         isActive && "bg-black/20"
       )}
     >
-      <Compass size={20} />
-      <span>Hint</span>
+      <Compass className="w-5 h-5 md:w-[20px] md:h-[20px]" />
+      <span className="hidden md:inline">Hint</span>
     </HoverBorderGradient>
   );
 };

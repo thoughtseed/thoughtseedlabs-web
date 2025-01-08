@@ -12,12 +12,12 @@ const InstructionsToggle = ({ onToggle, isActive }) => {
         onToggle(!isActive);
       }}
       className={cn(
-        "text-black/80",
+        "text-black/80 p-2 md:p-3",
         isActive && "bg-black/20"
       )}
     >
-      <Info size={20} />
-      <span>Info</span>
+      <Info className="w-5 h-5 md:w-[20px] md:h-[20px]" />
+      <span className="hidden md:inline">Info</span>
     </HoverBorderGradient>
   );
 };

@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-
 import React from 'react';
 
 const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
@@ -22,7 +21,7 @@ const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm" onClick={onClose}>
       <div 
         ref={modalRef}
-        className={`modal-content p-6 rounded-xl shadow-2xl 
+        className={`modal-content rounded-xl shadow-2xl 
           bg-white/20 dark:bg-neutral-900/20 
           backdrop-blur-md backdrop-saturate-150
           border border-white/20
@@ -30,11 +29,25 @@ const Modal = ({ isOpen, onClose, title, children, className = '' }) => {
           ${className}`}
         onClick={e => e.stopPropagation()}
       >
-        <button className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold" onClick={onClose}>×</button>
-        <h2 className="text-2xl font-bold text-white mb-4">{title}</h2>
-        <div className="modal-body overflow-y-auto text-white">
-          <div className="prose prose-invert max-w-none">
-            {children}
+        <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <h2 className="text-2xl font-bold text-white">{title}</h2>
+          <button 
+            className="w-10 h-10 flex items-center justify-center
+              bg-white/20 hover:bg-white/30 backdrop-blur-sm
+              text-white rounded-full transition-all duration-200 ease-in-out
+              border border-white/20 text-xl
+              shadow-[0_0_15px_rgba(255,255,255,0.1)]
+              hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        </div>
+        <div className="p-6">
+          <div className="modal-body overflow-y-auto text-white">
+            <div className="prose prose-invert max-w-none">
+              {children}
+            </div>
           </div>
         </div>
       </div>
