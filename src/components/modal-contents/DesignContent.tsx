@@ -1,12 +1,12 @@
 import React from 'react';
 
 const DesignPrinciple = ({ title, description, metrics }) => (
-  <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 sm:p-6 backdrop-blur-sm transition-all hover:bg-white/10">
+  <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 sm:p-6 backdrop-blur-sm transition-all hover:bg-white/10 flex flex-col h-full">
     <div className="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-full blur-2xl" />
-    <div className="relative">
+    <div className="relative flex flex-col flex-1">
       <h3 className="mb-3 text-lg font-bold text-white">{title}</h3>
-      <p className="mb-4 text-sm leading-relaxed text-white/80">{description}</p>
-      <div className="grid grid-cols-2 gap-3">
+      <p className="mb-4 text-sm leading-relaxed text-white/80 flex-1">{description}</p>
+      <div className="grid grid-cols-2 gap-3 mt-auto">
         {metrics.map((metric, index) => (
           <div key={index} className="rounded-lg bg-white/5 p-3 backdrop-blur-sm">
             <div className="text-lg font-bold text-amber-400">{metric.value}</div>
@@ -94,7 +94,7 @@ const DesignContent = () => {
       </div>
 
       {/* Design Principles Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
         {designPrinciples.map((principle) => (
           <DesignPrinciple key={principle.title} {...principle} />
         ))}

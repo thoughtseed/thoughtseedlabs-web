@@ -52,7 +52,7 @@ const ProjectsContent = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-6">
       {/* Project Categories */}
       {Object.entries(projects).map(([category, projectList]) => (
         <div key={category}>
@@ -86,18 +86,19 @@ const ProjectsContent = () => {
         ))}
       </div>
 
-      {/* Project Timeline */}
-      <div className="relative mt-8 space-y-4">
-        <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-purple-500/50 to-transparent md:left-1/2" />
+      <div className="relative mt-8 space-y-8">
+        <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-purple-500/50 to-transparent md:left-1/2 md:-translate-x-1/2" />
         {[
           { year: '2023', event: 'Launched TokenofME Platform' },
           { year: '2022', event: 'Expanded to European Markets' },
           { year: '2021', event: 'Released Vibrasonix 2.0' },
           { year: '2020', event: 'Founded Thoughtseed' }
         ].map((milestone, index) => (
-          <div key={milestone.year} className="relative pl-8 md:ml-1/2 md:pl-12">
-            <div className="absolute -left-1.5 top-1.5 h-4 w-4 rounded-full border-2 border-purple-500 bg-neutral-900 md:-left-2" />
-            <div className="rounded-lg bg-white/5 p-4 backdrop-blur-sm">
+          <div
+            key={milestone.year}
+            className="relative pl-12 md:pl-0 flex items-center"
+          >
+            <div className="rounded-lg bg-white/5 p-4 backdrop-blur-sm w-full">
               <div className="text-sm font-medium text-purple-400">{milestone.year}</div>
               <div className="text-white">{milestone.event}</div>
             </div>

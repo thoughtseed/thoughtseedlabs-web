@@ -73,26 +73,26 @@ const ApproachContent = () => {
       {/* Implementation Process */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-4 sm:p-6 backdrop-blur-sm">
         <h3 className="mb-4 text-lg font-bold text-neutral-900 dark:text-white">Implementation Process</h3>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-4">
+        <div className="space-y-4 md:space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-neutral-900 dark:text-white">1</div>
             <div className="flex-grow">
               <h4 className="text-neutral-900 dark:text-white font-medium">Understanding Flow</h4>
-              <p className="text-sm text-neutral-600 dark:text-white/60">Analyzing natural patterns and identifying enhancement opportunities</p>
+              <p className="text-sm text-neutral-600 dark:text-white/60 mt-1">Analyzing natural patterns and identifying enhancement opportunities</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-neutral-900 dark:text-white">2</div>
             <div className="flex-grow">
               <h4 className="text-neutral-900 dark:text-white font-medium">Seamless Implementation</h4>
-              <p className="text-sm text-neutral-600 dark:text-white/60">Building solutions that integrate naturally with existing workflows</p>
+              <p className="text-sm text-neutral-600 dark:text-white/60 mt-1">Building solutions that integrate naturally with existing workflows</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-neutral-900 dark:text-white">3</div>
             <div className="flex-grow">
               <h4 className="text-neutral-900 dark:text-white font-medium">Continuous Refinement</h4>
-              <p className="text-sm text-neutral-600 dark:text-white/60">Iterative improvements based on real usage patterns and feedback</p>
+              <p className="text-sm text-neutral-600 dark:text-white/60 mt-1">Iterative improvements based on real usage patterns and feedback</p>
             </div>
           </div>
         </div>

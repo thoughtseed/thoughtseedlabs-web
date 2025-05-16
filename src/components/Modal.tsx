@@ -45,6 +45,7 @@ const Modal: React.FC<ModalProps> = ({
           w-[95%] max-w-[90vw] min-w-[280px]
           mx-auto
           max-h-[90vh]
+          overflow-hidden  
           transition-all duration-300
           ${className}`}
         onClick={e => e.stopPropagation()}
@@ -52,19 +53,21 @@ const Modal: React.FC<ModalProps> = ({
         <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">{title}</h2>
           <button 
-            className="w-10 h-10 flex items-center justify-center
+            className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center
               bg-white/20 hover:bg-white/30 backdrop-blur-sm
               text-white rounded-full transition-all duration-200 ease-in-out
-              border border-white/20 text-xl
+              border border-white/20 text-lg sm:text-xl
               shadow-[0_0_15px_rgba(255,255,255,0.1)]
-              hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+              hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]
+              leading-none p-0 aspect-square font-bold"
             onClick={onClose}
+            aria-label="Close modal"
           >
             ×
           </button>
         </div>
         <div className="p-3 sm:p-4 md:p-6">
-          <div className="modal-body overflow-y-auto max-h-[calc(90vh-8rem)] text-neutral-900 dark:text-white">
+          <div className="modal-body overflow-y-auto max-h-[calc(90vh-8rem)] text-neutral-900 dark:text-white p-2 ">
             <div className="prose dark:prose-invert max-w-none">
               {(section && MODAL_CONTENT_MAP[section] ? 
                 React.createElement(MODAL_CONTENT_MAP[section]) : 

@@ -1,16 +1,16 @@
 import React from 'react';
 
 const ResearchArea = ({ title, description, metrics }) => (
-  <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 sm:p-6 backdrop-blur-sm transition-all hover:bg-white/10">
+  <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 sm:p-6 lg:p-8 backdrop-blur-sm transition-all hover:bg-white/10 flex flex-col h-full">
     <div className="absolute -right-12 -top-12 w-24 h-24 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-full blur-2xl" />
-    <div className="relative">
-      <h3 className="mb-3 text-lg font-bold text-white">{title}</h3>
-      <p className="mb-4 text-sm leading-relaxed text-white/80">{description}</p>
-      <div className="grid grid-cols-2 gap-3">
+    <div className="relative flex flex-col flex-1">
+      <h3 className="mb-3 text-lg md:text-xl font-bold text-white">{title}</h3>
+      <p className="mb-4 text-sm md:text-base leading-relaxed text-white/80 flex-1">{description}</p>
+      <div className="grid grid-cols-2 gap-3 mt-auto">
         {metrics.map((metric, index) => (
-          <div key={index} className="rounded-lg bg-white/5 p-3 backdrop-blur-sm">
-            <div className="text-2xl font-bold text-pink-400">{metric.value}</div>
-            <div className="text-xs text-white/60">{metric.label}</div>
+          <div key={index} className="rounded-lg bg-white/5 p-3 md:p-4 backdrop-blur-sm flex flex-col items-start">
+            <div className="text-sm md:text-2xl font-bold text-pink-400">{metric.value}</div>
+            <div className="text-xs md:text-sm text-white/60">{metric.label}</div>
           </div>
         ))}
       </div>
@@ -34,7 +34,7 @@ const ScienceContent = () => {
   const researchAreas = [
     {
       title: 'Adaptive Systems',
-      description: 'Research into self-learning systems that naturally evolve with usage patterns to enhance user experience.',
+      description: 'Self-learning systems that evolve with usage patterns.',
       metrics: [
         { value: '99.9%', label: 'Adaptation Accuracy' },
         { value: '10ms', label: 'Response Time' }
@@ -42,7 +42,7 @@ const ScienceContent = () => {
     },
     {
       title: 'Pattern Recognition',
-      description: 'Advanced algorithms for understanding and predicting natural interaction patterns.',
+      description: 'Algorithms for understanding and predicting interactions.',
       metrics: [
         { value: '1000+', label: 'Patterns Analyzed' },
         { value: '100x', label: 'Processing Speed' }
@@ -50,7 +50,7 @@ const ScienceContent = () => {
     },
     {
       title: 'Flow Analysis',
-      description: 'Studying how users naturally interact with systems to create more intuitive interfaces.',
+      description: 'Studying user interaction to create intuitive interfaces.',
       metrics: [
         { value: '50TB', label: 'Interaction Data/Day' },
         { value: '95%', label: 'Flow Optimization' }
@@ -78,7 +78,7 @@ const ScienceContent = () => {
       </div>
 
       {/* Research Areas Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
         {researchAreas.map((area) => (
           <ResearchArea key={area.title} {...area} />
         ))}
@@ -128,3 +128,4 @@ const ScienceContent = () => {
 };
 
 export default ScienceContent;
+
