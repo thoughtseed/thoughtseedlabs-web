@@ -87,6 +87,11 @@ export const useAudio = () => {
     if (bgmInitializedRef.current) return;
 
     const isMuted = useAudioStore.getState().isMuted;
+    const { soundVolume } = useStore.getState();
+    
+    // Apply global volume from store (normalized to 0-1)
+    const volumeMultiplier = soundVolume / 100;
+    Howler.volume(volumeMultiplier);
 
     // Create audio groups with initial setup
     audioGroupsRef.current = {
@@ -99,35 +104,25 @@ export const useAudio = () => {
           html5: true,
           format: ['wav'],
           onload: function() {
-            const sound = this;
-            const ctx = Howler.ctx;
-            // Create compressor node for dynamic range control
-            const compressor = ctx.createDynamicsCompressor();
-            compressor.threshold.value = -24;  // Start compressing at -24dB
-            compressor.knee.value = 30;        // Smooth compression curve
-            compressor.ratio.value = 12;       // Compression ratio
-            compressor.attack.value = 0.003;   // Quick attack
-            compressor.release.value = 0.25;   // Moderate release
-            // Connect nodes
-            sound._sounds[0]._node.connect(compressor);
-            compressor.connect(ctx.destination);
+            // Skip compressor setup for now as it's causing errors
+            // We'll use Howler's built-in volume controls instead
           }
         }),
-        baseVolume: AUDIO_CONFIG.bgm.baseVolume,
+        baseVolume: AUDIO_CONFIG.bgm.baseVolume * volumeMultiplier,
         fadeTime: AUDIO_CONFIG.bgm.fadeTime,
       },
       ui: {
         sound: createTrackedHowl({
           src: [AUDIO_CONFIG.ui.src],
-          volume: AUDIO_CONFIG.ui.baseVolume,
+          volume: AUDIO_CONFIG.ui.baseVolume * volumeMultiplier,
         }),
-        baseVolume: AUDIO_CONFIG.ui.baseVolume,
+        baseVolume: AUDIO_CONFIG.ui.baseVolume * volumeMultiplier,
         fadeTime: AUDIO_CONFIG.ui.fadeTime,
       },
       waypoints: {
         sound: createTrackedHowl({
           src: [AUDIO_CONFIG.waypoint.src],
-          volume: AUDIO_CONFIG.waypoint.baseVolume,
+          volume: AUDIO_CONFIG.waypoint.baseVolume * volumeMultiplier,
           pannerAttr: {
             panningModel: 'HRTF',
             distanceModel: 'inverse',
@@ -139,7 +134,7 @@ export const useAudio = () => {
             coneOuterGain: 0
           }
         }),
-        baseVolume: AUDIO_CONFIG.waypoint.baseVolume,
+        baseVolume: AUDIO_CONFIG.waypoint.baseVolume * volumeMultiplier,
         fadeTime: AUDIO_CONFIG.waypoint.fadeTime,
       }
     };
@@ -160,6 +155,31 @@ export const useAudio = () => {
       }
     };
   }, [createTrackedHowl]);
+  
+  // Listen for sound volume changes
+  useEffect(() => {
+    const unsubscribe = useStore.subscribe((state) => {
+      if (audioGroupsRef.current && state.soundVolume !== undefined) {
+        const volumeMultiplier = state.soundVolume / 100;
+        
+        // Update global volume
+        Howler.volume(volumeMultiplier);
+        
+        // Update all audio groups' base volumes
+        if (audioGroupsRef.current.bgm) {
+          audioGroupsRef.current.bgm.baseVolume = AUDIO_CONFIG.bgm.baseVolume * volumeMultiplier;
+        }
+        if (audioGroupsRef.current.ui) {
+          audioGroupsRef.current.ui.baseVolume = AUDIO_CONFIG.ui.baseVolume * volumeMultiplier;
+        }
+        if (audioGroupsRef.current.waypoints) {
+          audioGroupsRef.current.waypoints.baseVolume = AUDIO_CONFIG.waypoint.baseVolume * volumeMultiplier;
+        }
+      }
+    });
+    
+    return () => unsubscribe();
+  }, []);
 
   // Cleanup all sound instances when the hook unmounts
   useEffect(() => {

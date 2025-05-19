@@ -17,6 +17,13 @@ interface StoreState {
   setAudioEnabled: (enabled: boolean) => void
   showAudioModal: boolean
   setShowAudioModal: (show: boolean) => void
+  // Tutorial system
+  tutorialStep: number
+  setTutorialStep: (step: number) => void
+  tutorialCompleted: boolean
+  setTutorialCompleted: (completed: boolean) => void
+  soundVolume: number
+  setSoundVolume: (volume: number) => void
   // Achievement notification
   showAchievementIcon: boolean
   setShowAchievementIcon: (show: boolean) => void
@@ -73,6 +80,13 @@ export const useStore = create<StoreState>((set) => ({
   setAudioEnabled: (enabled) => set({ audioEnabled: enabled }),
   showAudioModal: true,
   setShowAudioModal: (show) => set({ showAudioModal: show }),
+  // Tutorial system
+  tutorialStep: 0,
+  setTutorialStep: (step) => set({ tutorialStep: step }),
+  tutorialCompleted: false,
+  setTutorialCompleted: (completed) => set({ tutorialCompleted: completed }),
+  soundVolume: 75, // Default to 75%
+  setSoundVolume: (volume) => set({ soundVolume: volume }),
   // Achievement notification
   showAchievementIcon: false,
   setShowAchievementIcon: (show) => set({ showAchievementIcon: show }),
