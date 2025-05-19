@@ -1,125 +1,103 @@
-<img src="public/images/logo-dark-nobg.png" alt="ThoughtSeed Logo" width="200"/>
-
 # ThoughtSeed Digital Consciousness Expedition
 
-> *Inoculating conscious intentions through digital exploration*
+![ThoughtSeed](public/images/logo-dark-nobg.png)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
-![Status](https://img.shields.io/badge/status-active-success.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+## Concept
 
----
+ThoughtSeed's Digital Consciousness Expedition is an immersive 3D web experience that manifests abstract realms of consciousness through interactive digital art. This platform serves as a digital embodiment of ThoughtSeed's philosophy of innovation through integration, combining consciousness research with technological innovation.
 
-## 🌟 Overview
+### The Experience
 
-ThoughtSeed's Digital Consciousness Expedition is an innovative 3D web experience that manifests abstract realms of consciousness through interactive digital art. This groundbreaking project combines terrain deformation, sacred geometry, and spatial audio to create a unique journey through a digital mindscape.
+Explore a unique winter landscape where interactive waypoints reveal insights across multiple domains. As you navigate the consciousness terrain, you'll:
 
-### ✨ Core Features
+- Discover waypoints that form a Fibonacci spiral pattern, representing the natural unfoldment of consciousness
+- Experience terrain that responds to your presence through real-time deformation
+- Engage with an immersive audioscape that enhances the journey
+- Uncover hidden sacred geometry elements that reveal deeper philosophical concepts
 
-- **Dynamic Terrain Deformation**: Real-time response to user presence with physics-based wave propagation
-- **Sacred Geometry Navigation**: Three-tiered waypoint system following Fibonacci patterns
-- **Spatial Audio Landscape**: State-based sound evolution with consciousness frequency alignment
-- **Achievement System**: Track and visualize your journey through the consciousness expedition
+## Brand Philosophy
 
-## 🚀 Quick Start
+ThoughtSeed exists at the intersection of multiple disciplines, built on these core values:
 
-```bash
-# Clone the repository
-git clone https://github.com/thoughtseed/consciousness-expedition.git
+### Innovation Through Integration
+We create breakthrough solutions by integrating diverse technologies:
+- Combining AI with traditional industries
+- Merging hardware and software solutions
+- Blending consciousness and technology
 
-# Install dependencies
-pnpm install
+### Technical Excellence
+Our commitment to excellence is demonstrated through:
+- Robust technical implementations
+- Cutting-edge technology adoption
+- High-quality development standards
 
-# Start development server
-pnpm dev
+### Practical Innovation
+We focus on innovation that delivers real value:
+- Solving concrete business challenges
+- Improving user experiences
+- Creating measurable impact
 
-# Build for production
-pnpm build
-```
+### Cross-Domain Expertise
+Our strength lies in bridging different domains:
+- Energy and infrastructure
+- AI and machine learning
+- Wellness and consciousness
+- Smart technology solutions
 
-## 🛠 Technology Stack
+## Innovation Pillars
 
-- **Core**: WebGL, Three.js, React with TypeScript
-- **State Management**: Custom consciousness state orchestration
-- **Audio**: Web Audio API with spatial implementation
-- **Build System**: Vite
-- **Package Manager**: pnpm
+1. **Technology Transformation** - Modernizing traditional industries with AI-driven solutions and creating smart, connected systems
+2. **User-Centric Design** - Focusing on practical usability with emphasis on intuitive interface design
+3. **Sustainable Development** - Creating energy-efficient solutions with a focus on renewable energy
+4. **Consciousness Integration** - Developing biofeedback systems and wellness technology tools
 
-## 🎯 Core Systems
+## Navigation Structure
 
-### 1. Terrain Deformation
-```typescript
-interface TerrainSystem {
-  resolution: 128,
-  amplitude: 2.5,
-  persistence: 0.5,
-  scale: 100
-}
-```
+The experience is organized in three tiers of interactive waypoints:
 
-### 2. Consciousness Navigation
-- Inner Sanctum (Waypoints 1-5)
-- Expansion Zone (Waypoints 6-9)
-- Hidden Dimensions (Waypoints 10-14)
+### Primary Navigation (Inner Circle)
+- **OUR APPROACH** - Core methodology and philosophy
+- **SERVICES** - Available offerings and capabilities
+- **PROJECTS** - Showcase of work and achievements
+- **ABOUT US** - Team and company information
+- **CONTACT US** - Communication channels
 
-### 3. Audio Landscape
-```typescript
-const audioSystem = {
-  masterVolume: 1.0,
-  meditation: 0.7,
-  insights: 0.8,
-  ambient: 0.5
-};
-```
+### Secondary Navigation (Outer Circle)
+- **SCIENCE** - Scientific principles and research
+- **ENGINEERING** - Technical capabilities
+- **DESIGN** - Creative process and aesthetics
+- **ART** - Artistic vision and expression
 
-## 🎨 Design Philosophy
+### Hidden Easter Egg Waypoints
+Special waypoints that reveal deeper philosophical content related to sacred geometries:
+- **FOUNDATION OF CONSCIOUSNESS** - Tetrahedron
+- **STABILITY OF MIND** - Cube
+- **BALANCE OF THOUGHT** - Octahedron
+- **HARMONY OF BEING** - Dodecahedron
+- **INFINITE POTENTIAL** - Icosahedron
 
-### Color System
-```css
---primary-blue: #4A90E2;    /* Main interactive elements */
---accent-teal: #50E3C2;     /* Highlights and accents */
---deep-purple: #6B66FF;     /* Special interactions */
---consciousness-gold: #FFD700; /* Achievement indicators */
-```
+## Interactive Tutorial
 
-### Typography
-- Primary: SubjectivitySerif for wisdom and insights
-- Secondary: Inter for navigation and interface
+The experience begins with a multi-step interactive tutorial that guides users through:
 
-## 🏆 Achievement System
+1. **Welcome Screen**: An introduction to ThoughtSeed's cross-disciplinary innovation space
+2. **Sound Preferences**: Audio settings to enhance the immersive experience
+3. **Waypoint Navigation**: Interactive demonstration of the waypoint system
+4. **Discovery Elements**: Hints at hidden features to encourage exploration
 
-Track your journey through:
-- Waypoint discoveries
-- Energy field interactions
-- Consciousness level progression
-- Hidden dimension revelations
+This onboarding process is designed to create a sense of awe and intrigue, inviting users to venture beyond conventional boundaries and explore the unknown.
 
-## 🔮 Future Vision
+## Technical Implementation
 
-- VR/AR Integration
-- Multi-user Experiences
-- Advanced Consciousness Tracking
-- Research Data Visualization
+The Digital Consciousness Expedition is built using:
 
-## 📚 Documentation
+- **Three.js** and **React Three Fiber** for 3D visualization
+- **WebGL** for terrain rendering and deformation
+- **Howler.js** for spatial audio implementation
+- **React** and **TypeScript** for interface components
+- **Zustand** for state management
+- **TailwindCSS** for styling
 
-- [Technical Documentation](brand-docs/tech-doc.md)
-- [Design Specifications](brand-docs/design-specs.md)
-- [Product Requirements](brand-docs/prd.md)
-- [Brand Philosophy](brand-docs/brand-philosophy.md)
+## Credits
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-## 📄 License
-
-© 2024 ThoughtSeed. All rights reserved. See [LICENSE.txt](LICENSE.txt) for details.
-
----
-
-<div align="center">
-
-**[Experience the Journey](https://thoughtseed.space) • [Documentation](brand-docs/) • [Report Bug](https://github.com/thoughtseed/consciousness-expedition/issues)**
-
-</div>
+Created by ThoughtSeed Labs - Inoculating conscious intentions across industries through integration of science, engineering, design, and art.
