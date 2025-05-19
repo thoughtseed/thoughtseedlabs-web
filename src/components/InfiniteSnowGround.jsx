@@ -311,6 +311,14 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
       ).length();
 
       if (distance > CHUNK_UNLOAD_DISTANCE) {
+        const chunkKey = getChunkKey(chunk.position.x, chunk.position.z);
+        
+        // Save current deformation state before recycling
+        if (chunk.geometry.attributes.position.needsUpdate) {
+          saveChunkDeformation(chunk);
+        }
+        
+        // Reset the geometry to original state to be reused elsewhere
         const geometry = chunk.geometry;
         const originalPosition = geometry.userData.originalPosition;
 
@@ -319,21 +327,53 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
           geometry.attributes.position.needsUpdate = true;
           geometry.computeVertexNormals();
         }
-
-        const chunkKey = getChunkKey(chunk.position.x, chunk.position.z);
-        deformedChunksMapRef.current.delete(chunkKey);
+        
+        // Note: We intentionally don't delete the deformation data from deformedChunksMapRef
+        // This ensures the deformation data is preserved when the player returns to this area
       }
     });
+    
+    // Implement a cleanup mechanism to prevent memory bloat - keeping last 100 chunks max
+    const maxStoredChunks = 100;
+    if (deformedChunksMapRef.current.size > maxStoredChunks) {
+      // Convert to array to find oldest entries
+      const entries = Array.from(deformedChunksMapRef.current.entries());
+      // Delete oldest entries (first ones in the map)
+      const toDelete = entries.slice(0, entries.length - maxStoredChunks);
+      toDelete.forEach(([key]) => {
+        deformedChunksMapRef.current.delete(key);
+      });
+    }
   };
 
+  // For optimizing vertex calculations
+  const lastFootPositionsRef = useRef({
+    left: new THREE.Vector3(),
+    right: new THREE.Vector3()
+  });
+  const footMovementThreshold = 0.5; // Minimum movement required to trigger deformation
+  
   // Function to deform the mesh based on a point of impact
   const deformMesh = useCallback(
-    (mesh, point) => {
+    (mesh, point, foot) => {
       if (!mesh) return;
+      
+      // Check if foot position has changed enough to warrant recalculation
+      const lastPos = lastFootPositionsRef.current[foot];
+      if (lastPos.distanceToSquared(point) < footMovementThreshold * footMovementThreshold) {
+        return; // Skip if foot hasn't moved enough
+      }
+      
+      // Update last known foot position
+      lastPos.copy(point);
 
+      // Only process neighboring chunks (optimization)
       const neighboringChunks = getNeighboringChunks(point, chunksRef);
       const tempVertex = new THREE.Vector3();
       const geometriesToUpdate = [];
+      
+      // Pre-calculate squared deform radius for efficiency
+      const deformRadiusSq = DEFORM_RADIUS * DEFORM_RADIUS;
 
       neighboringChunks.forEach((chunk) => {
         const geometry = chunk.geometry;
@@ -344,29 +384,62 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
         const vertices = positionAttribute.array;
 
         let hasDeformation = false;
+        
+        // Optimize by only checking vertices within potential range
+        // Calculate chunk bounds relative to point
+        const chunkBounds = new THREE.Box3();
+        chunkBounds.setFromObject(chunk);
+        
+        // Skip chunk if it's definitely out of range
+        const closestPointInChunk = new THREE.Vector3();
+        chunkBounds.clampPoint(point, closestPointInChunk);
+        if (closestPointInChunk.distanceToSquared(point) > deformRadiusSq) {
+          return;
+        }
 
-        for (let i = 0; i < positionAttribute.count; i++) {
+        // Process vertices - check every 4th vertex first for quick rejection
+        const stride = 4; // Check every 4th vertex first for quick test
+        let needsDetailedPass = false;
+        
+        // First pass - sparse check
+        for (let i = 0; i < positionAttribute.count; i += stride) {
           tempVertex.fromArray(vertices, i * 3);
           chunk.localToWorld(tempVertex);
 
-          const distance = tempVertex.distanceTo(point);
+          const distanceSq = tempVertex.distanceToSquared(point);
+          
+          if (distanceSq < deformRadiusSq) {
+            needsDetailedPass = true;
+            break;
+          }
+        }
+        
+        // If sparse check found something nearby, do detailed pass
+        if (needsDetailedPass) {
+          for (let i = 0; i < positionAttribute.count; i++) {
+            tempVertex.fromArray(vertices, i * 3);
+            chunk.localToWorld(tempVertex);
 
-          if (distance < DEFORM_RADIUS) {
-            const influence = Math.pow(
-              (DEFORM_RADIUS - distance) / DEFORM_RADIUS,
-              3
-            );
+            const distanceSq = tempVertex.distanceToSquared(point);
+            
+            if (distanceSq < deformRadiusSq) {
+              const distance = Math.sqrt(distanceSq);
+              const influence = Math.pow(
+                (DEFORM_RADIUS - distance) / DEFORM_RADIUS,
+                3
+              );
 
-            const yOffset = influence * 10;
-            tempVertex.y -=
-              yOffset * Math.sin((distance / DEFORM_RADIUS) * Math.PI);
+              const yOffset = influence * 10;
+              tempVertex.y -=
+                yOffset * Math.sin((distance / DEFORM_RADIUS) * Math.PI);
 
-            tempVertex.y +=
-              WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * distance);
+              tempVertex.y +=
+                WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * distance);
 
-            chunk.worldToLocal(tempVertex);
-            tempVertex.toArray(vertices, i * 3);
-            hasDeformation = true;
+              chunk.worldToLocal(tempVertex);
+              tempVertex.toArray(vertices, i * 3);
+              hasDeformation = true;
+            }
           }
         }
 
@@ -458,7 +531,7 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
 
       const offsetRotated = cameraOffset
         .clone()
-        .applyAxisAngle(new THREE.Vector3(0, 0, 0), currentRotation.current);
+        .applyAxisAngle(new THREE.Vector3(0, 1, 0), currentRotation.current);
       const targetCameraPosition = characterPosition.clone().add(offsetRotated);
 
       camera.position.lerp(targetCameraPosition, 0.01);
@@ -522,12 +595,12 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
 
           if (leftFootBone) {
             tempVector.setFromMatrixPosition(leftFootBone.matrixWorld);
-            deformMesh(activeChunk, tempVector);
+            deformMesh(activeChunk, tempVector, 'left');
           }
 
           if (rightFootBone) {
             tempVector.setFromMatrixPosition(rightFootBone.matrixWorld);
-            deformMesh(activeChunk, tempVector);
+            deformMesh(activeChunk, tempVector, 'right');
           }
         }
 

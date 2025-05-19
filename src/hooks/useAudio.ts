@@ -61,6 +61,7 @@ export const useAudio = () => {
   const audioGroupsRef = useRef<AudioGroups | null>(null);
   const bgmInitializedRef = useRef(false);
   const fadeTimeoutRef = useRef<number | null>(null);
+  const soundInstancesRef = useRef<Howl[]>([]);  // Track all sound instances
 
   // Keep Howler's global mute state in sync with our store
   useEffect(() => {
@@ -74,6 +75,13 @@ export const useAudio = () => {
     return () => unsubscribe();
   }, []);
 
+  // Function to safely create and track a Howl instance
+  const createTrackedHowl = useCallback((config: any) => {
+    const sound = new Howl(config);
+    soundInstancesRef.current.push(sound);
+    return sound;
+  }, []);
+
   // Initialize audio groups
   useEffect(() => {
     if (bgmInitializedRef.current) return;
@@ -83,7 +91,7 @@ export const useAudio = () => {
     // Create audio groups with initial setup
     audioGroupsRef.current = {
       bgm: {
-        sound: new Howl({
+        sound: createTrackedHowl({
           src: [AUDIO_CONFIG.bgm.src],
           volume: 0, // Start at 0 for fade in
           loop: true,
@@ -104,20 +112,20 @@ export const useAudio = () => {
             sound._sounds[0]._node.connect(compressor);
             compressor.connect(ctx.destination);
           }
-        } as any),
+        }),
         baseVolume: AUDIO_CONFIG.bgm.baseVolume,
         fadeTime: AUDIO_CONFIG.bgm.fadeTime,
       },
       ui: {
-        sound: new Howl({
+        sound: createTrackedHowl({
           src: [AUDIO_CONFIG.ui.src],
           volume: AUDIO_CONFIG.ui.baseVolume,
-        } as any),
+        }),
         baseVolume: AUDIO_CONFIG.ui.baseVolume,
         fadeTime: AUDIO_CONFIG.ui.fadeTime,
       },
       waypoints: {
-        sound: new Howl({
+        sound: createTrackedHowl({
           src: [AUDIO_CONFIG.waypoint.src],
           volume: AUDIO_CONFIG.waypoint.baseVolume,
           pannerAttr: {
@@ -130,7 +138,7 @@ export const useAudio = () => {
             coneOuterAngle: 360,
             coneOuterGain: 0
           }
-        } as any),
+        }),
         baseVolume: AUDIO_CONFIG.waypoint.baseVolume,
         fadeTime: AUDIO_CONFIG.waypoint.fadeTime,
       }
@@ -151,14 +159,29 @@ export const useAudio = () => {
         window.clearTimeout(fadeTimeoutRef.current);
       }
     };
-  }, []);
+  }, [createTrackedHowl]);
 
+  // Cleanup all sound instances when the hook unmounts
   useEffect(() => {
     return () => {
+      // Clean up any audio resources
+      soundInstancesRef.current.forEach(sound => {
+        if (sound.playing()) {
+          sound.stop();
+        }
+        sound.unload();
+      });
+      soundInstancesRef.current = [];
+      
       if (audioGroupsRef.current) {
         Object.values(audioGroupsRef.current).forEach(group => {
+          if (group.sound.playing()) {
+            group.sound.stop();
+          }
+          // Unload should already happen via soundInstancesRef cleanup, but added for safety
           group.sound.unload();
         });
+        audioGroupsRef.current = null;
       }
     };
   }, []);
