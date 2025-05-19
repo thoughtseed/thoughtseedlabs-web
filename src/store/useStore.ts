@@ -78,7 +78,7 @@ export const useStore = create<StoreState>((set) => ({
   // Audio preferences
   audioEnabled: false,
   setAudioEnabled: (enabled) => set({ audioEnabled: enabled }),
-  showAudioModal: true,
+  showAudioModal: false,
   setShowAudioModal: (show) => set({ showAudioModal: show }),
   // Tutorial system
   tutorialStep: 0,

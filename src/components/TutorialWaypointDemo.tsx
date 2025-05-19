@@ -81,7 +81,7 @@ const TutorialWaypointDemo: React.FC<{
   ]
 
   return (
-    <div className={`w-full h-[300px] ${className}`}>
+    <div className={`w-full h-[220px] sm:h-[250px] md:h-[300px] ${className}`}>
       <Canvas 
         shadows 
         camera={{ position: [0, 4, 6], fov: 50 }}
@@ -118,14 +118,20 @@ const TutorialWaypointDemo: React.FC<{
           />
         ))}
         
-        {/* Camera controls */}
+        {/* Camera controls - improved for mobile */}
         <OrbitControls 
           autoRotate={autoRotate}
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={0.3} 
           enableZoom={false}
           enablePan={false}
           maxPolarAngle={Math.PI / 2 - 0.1}
           minPolarAngle={Math.PI / 4}
+          rotateSpeed={0.5} 
+          dampingFactor={0.1} 
+          enableDamping={true}
+          touches={{
+            ONE: THREE.TOUCH.ROTATE
+          }}
         />
       </Canvas>
     </div>

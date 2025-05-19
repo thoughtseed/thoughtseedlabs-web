@@ -105,11 +105,11 @@ export const AudioModal = () => {
       case 0:
         return (
           <>
-            <div className="relative mb-6 h-[130px] overflow-hidden rounded-lg">
+            <div className="relative mb-4 sm:mb-6 h-[100px] sm:h-[120px] md:h-[130px] overflow-hidden rounded-lg">
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 opacity-80"></div>
               <div className="absolute inset-0 bg-[url('/images/texture2.png')] opacity-40 mix-blend-overlay"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <h2 className="text-3xl font-bold text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
                   Begin Your Journey
                 </h2>
               </div>
@@ -196,11 +196,11 @@ export const AudioModal = () => {
       case 3:
         return (
           <>
-            <div className="relative mb-6 h-[130px] overflow-hidden rounded-lg">
+            <div className="relative mb-4 sm:mb-6 h-[100px] sm:h-[120px] md:h-[130px] overflow-hidden rounded-lg">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 opacity-70"></div>
               <div className="absolute inset-0 bg-[url('/images/texture3.jpeg')] opacity-30 mix-blend-overlay"></div>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <h2 className="text-2xl font-bold text-white tracking-tight mb-2">
+                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-1 sm:mb-2">
                   Discovery Awaits
                 </h2>
                 <p className="text-sm text-white/80 max-w-md text-center">
@@ -238,13 +238,13 @@ export const AudioModal = () => {
   return (
     <Modal 
       isOpen={showAudioModal} 
-      onClose={() => {}} 
+      onClose={() => setShowAudioModal(false)} 
       title={titles[tutorialStep]}
-      className="bg-black/40 w-[90%] max-w-2xl"
+      className="bg-black/40 w-[95%] max-w-2xl"
     >
-      <div className="prose prose-invert max-w-none px-4 py-2 sm:px-6">
+      <div className="prose prose-invert max-w-none px-2 py-2 sm:px-4 md:px-6">
         {/* Step content */}
-        <div className="min-h-[350px]">
+        <div className="min-h-[280px] sm:min-h-[320px] md:min-h-[350px]">
           {renderStepContent()}
         </div>
         
@@ -264,11 +264,11 @@ export const AudioModal = () => {
           ))}
         </div>
         
-        {/* Navigation buttons */}
-        <div className="flex justify-between mt-6">
+        {/* Navigation buttons - Improved for mobile */}
+        <div className="flex flex-col sm:flex-row justify-between gap-4 mt-4 sm:mt-6">
           <button
             onClick={prevStep}
-            className={`px-5 py-2 rounded-lg transition-all duration-200 
+            className={`px-4 sm:px-5 py-2 rounded-lg transition-all duration-200 
               ${tutorialStep === 0 
                 ? 'opacity-0 cursor-default' 
                 : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
@@ -278,11 +278,11 @@ export const AudioModal = () => {
             Back
           </button>
           
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:space-x-4">
             {tutorialStep === 3 && (
               <button
                 onClick={() => handleCompleteTutorial(false)}
-                className="px-5 py-2 bg-white/10 hover:bg-white/20 
+                className="px-4 sm:px-5 py-2 bg-white/10 hover:bg-white/20 
                   text-white/80 rounded-lg transition-all duration-200 
                   border border-white/10 text-sm"
               >
@@ -292,13 +292,13 @@ export const AudioModal = () => {
             
             <button
               onClick={nextStep}
-              className="px-5 py-2 bg-white/20 hover:bg-white/30 
+              className="px-4 sm:px-5 py-2 bg-white/20 hover:bg-white/30 
                 text-white rounded-lg transition-all duration-200 
                 border border-white/20 text-sm
                 shadow-[0_0_15px_rgba(255,255,255,0.1)]
                 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
             >
-              {tutorialStep < 3 ? 'Continue' : 'Begin Experience with Sound'}
+              {tutorialStep < 3 ? 'Continue' : 'Begin with Sound'}
             </button>
           </div>
         </div>

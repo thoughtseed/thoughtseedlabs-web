@@ -63,7 +63,7 @@ const VolumeSlider: React.FC<VolumeSliderProps> = ({
   }
 
   return (
-    <div className={`flex items-center space-x-4 ${className}`}>
+    <div className={`flex items-center space-x-2 sm:space-x-4 ${className}`}>
       <div className="text-white">
         {getVolumeIcon()}
       </div>
@@ -75,9 +75,9 @@ const VolumeSlider: React.FC<VolumeSliderProps> = ({
           value={volume}
           onChange={handleVolumeChange}
           className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-white/20
-            [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4
+            [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6
             [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md
-            [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4
+            [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6
             [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white"
         />
         <div 
@@ -85,7 +85,7 @@ const VolumeSlider: React.FC<VolumeSliderProps> = ({
           style={{ width: `${volume}%` }}
         />
       </div>
-      <div className="text-white text-sm w-8 text-center">
+      <div className="text-white text-sm min-w-[2.5rem] text-center">
         {volume}%
       </div>
     </div>

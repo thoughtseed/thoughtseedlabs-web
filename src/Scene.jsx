@@ -11,8 +11,8 @@ const CameraController = () => {
   const { camera } = useThree();
   
   useEffect(() => {
-    camera.position.set(0, 8, 50);  // Much lower height, even further back
-    camera.lookAt(0, 2, -5);  // Look slightly up and ahead
+    camera.position.set(0, 10, 40);  // Better initial camera position
+    camera.lookAt(0, 4, -5);  // Look at character height
   }, [camera]);
   
   return null;
@@ -46,15 +46,17 @@ const Scene = ({ showWaypoints, onWaypointClick, onMovingChange, onPositionChang
       <OrbitControls
         makeDefault
         enableDamping={true}
-        dampingFactor={0.05}
+        dampingFactor={0.1}  // Increased damping for smoother movement
+        rotateSpeed={0.7}    // Reduced rotation speed for better control
         enableRotate={true}
         enableZoom={true}
         enablePan={false}
-        minPolarAngle={Math.PI / 3.5}  // More restricted upward angle
-        maxPolarAngle={Math.PI / 2.5}  // More restricted downward angle
-        minDistance={40}  // Reduced minimum distance for closer zoom
-        maxDistance={80}  // Kept max distance to prevent white-wash effect
-        target={new THREE.Vector3(0, 2, -5)}  // Match lookAt point
+        minPolarAngle={Math.PI / 3}    // Limit upward viewing angle
+        maxPolarAngle={Math.PI / 2.2}  // Limit downward viewing angle
+        minDistance={35}     // Allow slightly closer zoom
+        maxDistance={60}     // Restrict maximum distance to prevent seeing too far
+        target={new THREE.Vector3(0, 4, -5)}  // Updated target to match new camera lookAt
+        screenSpacePanning={true}  // More intuitive panning in screen space
       />
 
       <FrameLimiter />

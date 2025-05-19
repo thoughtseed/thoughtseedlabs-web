@@ -10,6 +10,7 @@ import Scene from "./Scene";
 import WaypointsToggle from "./components/WaypointsToggle";
 import InstructionsToggle from "./components/InstructionsToggle";
 import DirectionalHintToggle from "./components/DirectionalHintToggle";
+import TutorialToggle from "./components/TutorialToggle";
 import DirectionalHint from "./components/DirectionalHint";
 import Modal from "./components/Modal.tsx";
 import InfiniteSnowGround from "./components/InfiniteSnowGround";
@@ -121,7 +122,9 @@ function App() {
     setInstructionsVisible,
     isCompleted,
     setTexture,
-    setShowAchievementIcon
+    setShowAchievementIcon,
+    setShowAudioModal,
+    setTutorialStep
   } = useStore();
   const [showHints, setShowHints] = useState(false);
 
@@ -201,6 +204,15 @@ function App() {
             isActive={instructionsVisible}
           />
           <DirectionalHintToggle onToggle={setShowHints} isActive={showHints} />
+          <TutorialToggle
+            onToggle={(isActive) => {
+              if (isActive) {
+                setTutorialStep(0);
+                setShowAudioModal(true);
+              }
+            }}
+            isActive={false}
+          />
         </ToggleGroup>
         <AudioControls />
       </div>

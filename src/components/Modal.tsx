@@ -44,13 +44,13 @@ const Modal: React.FC<ModalProps> = ({
           border border-white/20
           w-[95%] max-w-[90vw] min-w-[280px]
           mx-auto
-          max-h-[90vh]
+          max-h-[85vh] md:max-h-[90vh]
           transition-all duration-300
           ${className}`}
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10">
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">{title}</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">{title}</h2>
           <button 
             className="w-10 h-10 flex items-center justify-center
               bg-white/20 hover:bg-white/30 backdrop-blur-sm
@@ -63,8 +63,8 @@ const Modal: React.FC<ModalProps> = ({
             ×
           </button>
         </div>
-        <div className="p-3 sm:p-4 md:p-6">
-          <div className="modal-body overflow-y-auto max-h-[calc(90vh-8rem)] text-neutral-900 dark:text-white">
+        <div className="p-2 sm:p-4 md:p-6">
+          <div className="modal-body overflow-y-auto max-h-[calc(70vh-6rem)] sm:max-h-[calc(75vh-7rem)] md:max-h-[calc(90vh-8rem)] text-neutral-900 dark:text-white">
             <div className="prose dark:prose-invert max-w-none">
               {(section && MODAL_CONTENT_MAP[section] ? 
                 React.createElement(MODAL_CONTENT_MAP[section]) : 

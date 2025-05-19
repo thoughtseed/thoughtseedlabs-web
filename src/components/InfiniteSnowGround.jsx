@@ -49,8 +49,11 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
 
   // Camera setup
   const { camera } = useThree();
-  const cameraOffset = useMemo(() => new THREE.Vector3(0, 15, 25), []);
+  const cameraOffset = useMemo(() => new THREE.Vector3(0, 12, 20), []);
   const cameraTargetRef = useRef(new THREE.Vector3());
+  const cameraLerpSpeed = useRef(0.05);
+  const cameraLookAtOffset = useRef(new THREE.Vector3(0, 5, 0));
+  const lastCameraDirection = useRef(new THREE.Vector3(0, 0, -1));
 
   // State for movement and audio
   const [isMoving, setIsMoving] = useState(false);
@@ -464,13 +467,27 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
     const speed = CHARACTER_SPEED;
     const direction = new THREE.Vector3();
 
-    // Determine movement direction based on input
-    if (movement.current.forward) direction.z -= 1;
-    if (movement.current.backward) direction.z += 1;
-    if (movement.current.left) direction.x -= 1;
-    if (movement.current.right) direction.x += 1;
-
-    direction.normalize();
+    // Use camera direction to determine movement direction for more intuitive controls
+    const relativeCameraDir = lastCameraDirection.current.clone();
+    relativeCameraDir.y = 0; // Keep movement in horizontal plane
+    relativeCameraDir.normalize();
+    
+    // Calculate horizontal movement relative to camera view
+    const rightVector = new THREE.Vector3().crossVectors(
+      new THREE.Vector3(0, 1, 0),
+      relativeCameraDir
+    );
+    
+    // Apply inputs relative to camera direction
+    if (movement.current.forward) direction.add(relativeCameraDir);
+    if (movement.current.backward) direction.sub(relativeCameraDir);
+    if (movement.current.left) direction.sub(rightVector);
+    if (movement.current.right) direction.add(rightVector);
+    
+    // Only normalize if there's actual movement to prevent NaN values
+    if (direction.lengthSq() > 0.001) {
+      direction.normalize();
+    }
 
     // Apply smoothing to the movement
     smoothMovement.current.lerp(direction, 0.05);
@@ -510,14 +527,22 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
           speed * delta
         );
 
+        // Calculate target rotation based on movement direction
+        // This gives better response when camera angle changes
         const targetRotation = Math.atan2(
           smoothMovement.current.x,
           smoothMovement.current.z
         );
+        
+        // Apply smoother rotation with variable speed based on angle difference
+        const angleDiff = Math.abs(targetRotation - currentRotation.current) % (2 * Math.PI);
+        // Faster rotation when angle difference is large, slower for fine adjustments
+        const rotationSpeed = angleDiff > 0.5 ? delta * 5 : delta * 3;
+        
         currentRotation.current = lerpAngle(
           currentRotation.current,
           targetRotation,
-          delta * 4
+          rotationSpeed
         );
         characterParentRef.current.rotation.y = currentRotation.current;
       }
@@ -525,21 +550,27 @@ const InfiniteSnowWorld = ({ onMovingChange, onPositionChange }) => {
       characterParentRef.current.getWorldPosition(characterPosition);
       onPositionChange?.([characterPosition.x, characterPosition.y, characterPosition.z]);
 
+      // Update camera target to follow character with stable offset
       cameraTargetRef.current
         .copy(characterPosition)
-        .add(new THREE.Vector3(0, 0, 0));
+        .add(cameraLookAtOffset.current);
 
+      // Calculate camera position based on character's rotation
       const offsetRotated = cameraOffset
         .clone()
         .applyAxisAngle(new THREE.Vector3(0, 1, 0), currentRotation.current);
       const targetCameraPosition = characterPosition.clone().add(offsetRotated);
 
-      camera.position.lerp(targetCameraPosition, 0.01);
-      camera.lookAt(
-        cameraTargetRef.current.x,
-        cameraTargetRef.current.y + 7,
-        cameraTargetRef.current.z
-      );
+      // Store current camera direction for movement reference
+      lastCameraDirection.current.set(
+        Math.sin(currentRotation.current), 
+        0, 
+        Math.cos(currentRotation.current)
+      ).normalize();
+      
+      // Apply smoother camera transition with faster response time
+      camera.position.lerp(targetCameraPosition, cameraLerpSpeed.current);
+      camera.lookAt(cameraTargetRef.current);
 
       // Handle chunk positioning and deformation when moving
       if (isCurrentlyMoving) {
